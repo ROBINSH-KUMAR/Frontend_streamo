@@ -1,0 +1,1034 @@
+/* =========================================================
+   STREAMO SIDEBAR
+   Instagram-style collapsed / hover-expand navigation
+========================================================= */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  /* Compact icon-only width */
+  width: 70px;
+
+  background: #0c1114;
+  display: flex;
+  flex-direction: column;
+
+  padding: 22px 7px 16px;
+
+  box-sizing: border-box;
+  z-index: 10000;
+
+  border-right: 1px solid rgba(255, 255, 255, 0.045);
+
+  overflow: hidden;
+
+  transition:
+    width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.28s ease;
+}
+
+/* =========================================================
+   HOVER / EXPANDED STATE
+========================================================= */
+
+.sidebar:hover {
+  width: 220px;
+
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.28);
+}
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
+  width: 100%;
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 12px;
+
+  padding: 0 7px;
+  margin-bottom: 42px;
+
+  color: #ffffff;
+  text-decoration: none;
+
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+
+  box-sizing: border-box;
+
+  border-radius: 10px;
+
+  transition:
+    background 0.2s ease,
+    padding 0.28s ease;
+}
+
+.sidebar:hover .brand {
+  padding: 0 9px;
+}
+
+.brand:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+/* =========================================================
+   BRAND ICON
+========================================================= */
+
+.brand-icon {
+  width: 30px;
+  height: 30px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border: 1.5px solid #d7dddf;
+  border-radius: 8px;
+
+  color: #fff;
+}
+
+.brand-icon::before {
+  content: "";
+
+  position: absolute;
+
+  width: 7px;
+  height: 5px;
+
+  top: -5px;
+  left: 10px;
+
+  border-left: 1px solid #dce1e3;
+  border-bottom: 1px solid #dce1e3;
+
+  transform: rotate(-45deg);
+}
+
+.brand-screen {
+  width: 15px;
+  height: 11px;
+
+  border: 1px solid #dce1e3;
+  border-radius: 3px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-screen span {
+  width: 0;
+  height: 0;
+
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-left: 5px solid #dce1e3;
+
+  margin-left: 1px;
+}
+
+/* =========================================================
+   BRAND TEXT
+========================================================= */
+
+.brand-text {
+  opacity: 0;
+
+  width: 0;
+
+  overflow: hidden;
+  white-space: nowrap;
+
+  transform: translateX(-8px);
+
+  transition:
+    opacity 0.18s ease,
+    transform 0.25s ease,
+    width 0.28s ease;
+}
+
+.sidebar:hover .brand-text {
+  opacity: 1;
+
+  width: auto;
+
+  transform: translateX(0);
+
+  transition-delay: 0.08s;
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.sidebar-nav {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 7px;
+}
+
+/* =========================================================
+   NAV ITEM
+========================================================= */
+
+.nav-item {
+  width: 44px;
+  height: 44px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 13px;
+
+  padding: 0 12px;
+
+  box-sizing: border-box;
+
+  border-radius: 11px;
+
+  background: transparent;
+
+  color: #aeb6ba;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 400;
+
+  transition:
+    width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Expanded item */
+
+.sidebar:hover .nav-item {
+  width: 100%;
+  padding: 0 13px;
+}
+
+/* =========================================================
+   NAV HOVER
+========================================================= */
+
+.nav-item:hover {
+  color: #ffffff;
+
+  background: rgba(255, 255, 255, 0.055);
+
+  transform: translateX(1px);
+}
+
+/* =========================================================
+   ACTIVE
+========================================================= */
+
+.nav-item.active {
+  color: #24d8e8;
+
+  background: rgba(36, 216, 232, 0.08);
+}
+
+.nav-item.active:hover {
+  background: rgba(36, 216, 232, 0.12);
+}
+
+/* =========================================================
+   NAV ICON
+========================================================= */
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+.nav-icon svg {
+  width: 20px;
+  height: 20px;
+
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: 1.5;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  transition:
+    width 0.2s ease,
+    height 0.2s ease;
+}
+
+/* =========================================================
+   NAV LABEL
+========================================================= */
+
+.nav-label {
+  opacity: 0;
+
+  width: 0;
+
+  overflow: hidden;
+  white-space: nowrap;
+
+  transform: translateX(-7px);
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.15s ease,
+    transform 0.22s ease,
+    width 0.28s ease;
+}
+
+/* Show labels when expanded */
+
+.sidebar:hover .nav-label {
+  opacity: 1;
+
+  width: auto;
+
+  transform: translateX(0);
+
+  pointer-events: auto;
+
+  transition-delay: 0.07s;
+}
+
+/* =========================================================
+   ACCOUNT AREA
+========================================================= */
+
+.sidebar-profile {
+  margin-top: auto;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: left;
+
+  gap: 6px;
+
+  padding-top: 13px;
+
+  box-sizing: border-box;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.profile-link {
+  width: 44px;
+  height: 44px;
+
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 10px;
+
+  padding: 0 5px;
+
+  box-sizing: border-box;
+
+  border-radius: 11px;
+
+  color: #dce3e5;
+
+  text-decoration: none;
+
+  transition:
+    width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Expanded profile */
+
+.sidebar:hover .profile-link {
+  width: 100%;
+  padding: 0 10px;
+}
+
+/* =========================================================
+   PROFILE HOVER
+========================================================= */
+
+.profile-link:hover {
+  color: #ffffff;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  transform: translateX(1px);
+}
+
+/* =========================================================
+   PROFILE AVATAR
+========================================================= */
+
+.profile-avatar-wrapper {
+  position: relative;
+
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+}
+
+.profile-avatar-wrapper img,
+.profile-avatar-fallback {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  box-sizing: border-box;
+
+  border: 1px solid rgba(36, 216, 232, 0.28);
+
+  background: #182328;
+}
+
+.profile-avatar-fallback {
+  color: #24d8e8;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.profile-avatar-fallback svg {
+  width: 17px;
+  height: 17px;
+
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: 1.5;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================================================
+   ONLINE DOT
+========================================================= */
+
+.online-dot {
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+
+  right: -1px;
+  bottom: 0;
+
+  background: #24d8e8;
+
+  border-radius: 50%;
+
+  border: 2px solid #0c1114;
+
+  box-shadow: 0 0 6px rgba(36, 216, 232, 0.35);
+}
+
+/* =========================================================
+   PROFILE INFORMATION
+========================================================= */
+
+.profile-info {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+
+  opacity: 0;
+
+  width: 0;
+
+  overflow: hidden;
+
+  transform: translateX(-7px);
+
+  transition:
+    opacity 0.15s ease,
+    transform 0.22s ease,
+    width 0.28s ease;
+}
+
+.sidebar:hover .profile-info {
+  opacity: 1;
+
+  width: auto;
+
+  transform: translateX(0);
+
+  transition-delay: 0.07s;
+}
+
+/* =========================================================
+   PROFILE NAME
+========================================================= */
+
+.profile-name {
+  display: block;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  color: #e1e7e9;
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* =========================================================
+   PROFILE STATUS
+========================================================= */
+
+.profile-status {
+  color: #68777d;
+
+  font-size: 9px;
+  font-weight: 400;
+}
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+.sidebar-login {
+  width: 44px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 11px;
+
+  padding: 0 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid rgba(36, 216, 232, 0.14);
+
+  border-radius: 10px;
+
+  background: rgba(36, 216, 232, 0.055);
+
+  color: #24d8e8;
+
+  font-family: inherit;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  transition:
+    width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Expanded login */
+
+.sidebar:hover .sidebar-login {
+  width: 100%;
+  padding: 0 12px;
+}
+
+/* =========================================================
+   LOGIN HOVER
+========================================================= */
+
+.sidebar-login:hover {
+  color: #70edf6;
+
+  background: rgba(36, 216, 232, 0.1);
+
+  border-color: rgba(36, 216, 232, 0.26);
+
+  transform: translateX(1px);
+}
+
+/* =========================================================
+   LOGIN ICON
+========================================================= */
+
+.sidebar-login svg {
+  width: 18px;
+  height: 18px;
+
+  flex-shrink: 0;
+
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: 1.6;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================================================
+   LOGIN TEXT
+========================================================= */
+
+.sidebar-login span {
+  opacity: 0;
+
+  width: 0;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  transform: translateX(-7px);
+
+  transition:
+    opacity 0.15s ease,
+    transform 0.22s ease,
+    width 0.28s ease;
+}
+
+.sidebar:hover .sidebar-login span {
+  opacity: 1;
+
+  width: auto;
+
+  transform: translateX(0);
+
+  transition-delay: 0.07s;
+}
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.sidebar-logout {
+  width: 44px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 11px;
+
+  padding: 0 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid transparent;
+
+  border-radius: 9px;
+
+  background: transparent;
+
+  color: #78868c;
+
+  font-family: inherit;
+
+  font-size: 11px;
+  font-weight: 400;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  transition:
+    width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Expanded logout */
+
+.sidebar:hover .sidebar-logout {
+  width: 100%;
+  padding: 0 12px;
+}
+
+/* =========================================================
+   LOGOUT HOVER
+========================================================= */
+
+.sidebar-logout:hover {
+  color: #f08c8c;
+
+  background: rgba(239, 68, 68, 0.055);
+
+  border-color: rgba(239, 68, 68, 0.1);
+
+  transform: translateX(1px);
+}
+
+/* =========================================================
+   LOGOUT ICON
+========================================================= */
+
+.sidebar-logout svg {
+  width: 18px;
+  height: 18px;
+
+  flex-shrink: 0;
+
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: 1.6;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================================================
+   LOGOUT TEXT
+========================================================= */
+
+.sidebar-logout span {
+  opacity: 0;
+
+  width: 0;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  transform: translateX(-7px);
+
+  transition:
+    opacity 0.15s ease,
+    transform 0.22s ease,
+    width 0.28s ease;
+}
+
+.sidebar:hover .sidebar-logout span {
+  opacity: 1;
+
+  width: auto;
+
+  transform: translateX(0);
+
+  transition-delay: 0.07s;
+}
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.nav-item:focus-visible,
+.brand:focus-visible,
+.profile-link:focus-visible,
+.sidebar-login:focus-visible,
+.sidebar-logout:focus-visible {
+  outline: 2px solid #24d8e8;
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+  .sidebar {
+    width: 56px;
+    padding: 18px 6px 15px;
+  }
+
+  .sidebar:hover {
+    width: 210px;
+  }
+
+  .brand {
+    margin-bottom: 30px;
+  }
+
+  .nav-item {
+    width: 44px;
+    height: 44px;
+  }
+
+  .sidebar:hover .nav-item {
+    width: 100%;
+  }
+
+  .profile-link {
+    width: 44px;
+    height: 44px;
+  }
+
+  .sidebar:hover .profile-link {
+    width: 100%;
+  }
+
+  .sidebar-login {
+    width: 44px;
+    height: 40px;
+  }
+
+  .sidebar:hover .sidebar-login {
+    width: 100%;
+  }
+
+  .sidebar-logout {
+    width: 44px;
+    height: 38px;
+  }
+
+  .sidebar:hover .sidebar-logout {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+  .sidebar {
+    width: 52px;
+
+    padding: 13px 4px 12px;
+
+    border-radius: 0 15px 15px 0;
+  }
+
+  .sidebar:hover {
+    width: 195px;
+  }
+
+  .brand {
+    margin-bottom: 20px;
+  }
+
+  .brand-icon {
+    width: 32px;
+    height: 27px;
+  }
+
+  .nav-item {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 10px;
+  }
+
+  .sidebar:hover .nav-item {
+    width: 100%;
+  }
+
+  .nav-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .profile-link {
+    width: 42px;
+    height: 42px;
+  }
+
+  .sidebar:hover .profile-link {
+    width: 100%;
+  }
+
+  .profile-avatar-wrapper,
+  .profile-avatar-wrapper img,
+  .profile-avatar-fallback {
+    width: 31px;
+    height: 31px;
+  }
+
+  .sidebar-login {
+    width: 42px;
+    height: 38px;
+  }
+
+  .sidebar:hover .sidebar-login {
+    width: 100%;
+  }
+
+  .sidebar-logout {
+    width: 42px;
+    height: 36px;
+  }
+
+  .sidebar:hover .sidebar-logout {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   VERY SMALL SCREEN
+========================================================= */
+
+@media (max-width: 450px) {
+  .sidebar {
+    width: 48px;
+
+    padding: 10px 3px;
+
+    border-radius: 0 13px 13px 0;
+  }
+
+  .sidebar:hover {
+    width: 180px;
+  }
+
+  .brand {
+    margin-bottom: 15px;
+  }
+
+  .brand-icon {
+    width: 30px;
+    height: 24px;
+
+    border-radius: 6px;
+  }
+
+  .brand-icon::before {
+    left: 10px;
+  }
+
+  .brand-screen {
+    width: 13px;
+    height: 10px;
+  }
+
+  .nav-item {
+    width: 38px;
+    height: 40px;
+
+    border-radius: 10px;
+  }
+
+  .sidebar:hover .nav-item {
+    width: 100%;
+  }
+
+  .nav-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .nav-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .profile-link {
+    width: 38px;
+    height: 40px;
+  }
+
+  .sidebar:hover .profile-link {
+    width: 100%;
+  }
+
+  .profile-avatar-wrapper,
+  .profile-avatar-wrapper img,
+  .profile-avatar-fallback {
+    width: 28px;
+    height: 28px;
+  }
+
+  .sidebar-login {
+    width: 38px;
+    height: 34px;
+  }
+
+  .sidebar:hover .sidebar-login {
+    width: 100%;
+  }
+
+  .sidebar-logout {
+    width: 38px;
+    height: 34px;
+  }
+
+  .sidebar:hover .sidebar-logout {
+    width: 100%;
+  }
+
+  .sidebar-login svg,
+  .sidebar-logout svg {
+    width: 16px;
+    height: 16px;
+  }
+}

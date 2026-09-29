@@ -1,0 +1,1039 @@
+/* =========================================================
+   SIDEBAR LAYOUT VARIABLES
+========================================================= */
+
+:root {
+  --streamo-sidebar-collapsed: 70px;
+  --streamo-sidebar-expanded: 245px;
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.publish-page {
+  min-height: 100vh;
+
+  width: calc(100% - var(--streamo-sidebar-collapsed));
+  margin-left: var(--streamo-sidebar-collapsed);
+
+  padding: 50px 38px 80px;
+
+  box-sizing: border-box;
+
+  background: #0c1114;
+  color: #ffffff;
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  transition:
+    margin-left 0.28s ease,
+    width 0.28s ease;
+}
+
+/* =========================================================
+   SIDEBAR EXPANDED STATE
+========================================================= */
+
+body:has(.sidebar:hover) .publish-page {
+  width: calc(100% - var(--streamo-sidebar-expanded));
+  margin-left: var(--streamo-sidebar-expanded);
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.publish-container {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.publish-header {
+  margin-bottom: 32px;
+}
+
+.publish-eyebrow {
+  display: inline-block;
+
+  margin-bottom: 10px;
+
+  color: #24d8e8;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+.publish-header h1 {
+  margin: 0 0 10px;
+
+  color: #ffffff;
+
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 1;
+  font-weight: 700;
+
+  letter-spacing: -1.5px;
+}
+
+.publish-header p {
+  max-width: 600px;
+
+  margin: 0;
+
+  color: #7f898d;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   ALERTS
+========================================================= */
+
+.publish-alert {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 20px;
+  padding: 12px 15px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+}
+
+.publish-error {
+  color: #ffb4b4;
+
+  background: rgba(239, 68, 68, 0.08);
+
+  border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+.publish-success {
+  color: #9af0d7;
+
+  background: rgba(36, 216, 232, 0.06);
+
+  border: 1px solid rgba(36, 216, 232, 0.15);
+}
+
+.publish-alert span {
+  width: 20px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.publish-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr) 320px;
+
+  gap: 22px;
+
+  align-items: start;
+}
+
+.publish-main {
+  min-width: 0;
+}
+
+.publish-sidebar {
+  min-width: 0;
+
+  position: sticky;
+
+  top: 25px;
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.publish-card {
+  margin-bottom: 20px;
+  padding: 24px;
+
+  background: #10171b;
+
+  border: 1px solid rgba(255, 255, 255, 0.055);
+
+  border-radius: 10px;
+}
+
+.card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 20px;
+}
+
+.card-heading h2 {
+  margin: 0 0 5px;
+
+  color: #f1f3f3;
+
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.card-heading p {
+  margin: 0;
+
+  color: #737e82;
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.required-badge {
+  padding: 5px 8px;
+
+  border: 1px solid rgba(36, 216, 232, 0.14);
+
+  border-radius: 5px;
+
+  color: #24d8e8;
+
+  background: rgba(36, 216, 232, 0.05);
+
+  font-size: 9px;
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+}
+
+/* =========================================================
+   UPLOAD ZONE
+========================================================= */
+
+.upload-zone {
+  width: 100%;
+  min-height: 230px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 30px;
+
+  box-sizing: border-box;
+
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+
+  border-radius: 8px;
+
+  background: #0c1114;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.upload-zone:hover {
+  border-color: rgba(36, 216, 232, 0.45);
+
+  background: #0e171b;
+
+  transform: translateY(-1px);
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 5px;
+
+  border: 1px solid rgba(36, 216, 232, 0.2);
+
+  border-radius: 50%;
+
+  color: #24d8e8;
+
+  background: rgba(36, 216, 232, 0.05);
+
+  font-size: 18px;
+}
+
+.upload-zone strong {
+  color: #e8edef;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.upload-zone span {
+  color: #7f898d;
+
+  font-size: 11px;
+}
+
+.upload-zone small {
+  margin-top: 3px;
+
+  color: #555f63;
+
+  font-size: 9px;
+}
+
+/* =========================================================
+   VIDEO PREVIEW
+========================================================= */
+
+.video-preview-wrapper {
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+
+  border-radius: 8px;
+
+  background: #080b0d;
+}
+
+.video-preview {
+  width: 100%;
+  max-height: 500px;
+
+  display: block;
+
+  background: #050708;
+}
+
+.preview-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 12px 14px;
+
+  background: #11191d;
+}
+
+/* =========================================================
+   FILE DETAILS
+========================================================= */
+
+.file-details {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.file-details strong {
+  max-width: 100%;
+
+  overflow: hidden;
+
+  color: #dce1e3;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.file-details span {
+  color: #687377;
+
+  font-size: 9px;
+}
+
+/* =========================================================
+   REMOVE BUTTON
+========================================================= */
+
+.remove-button {
+  flex-shrink: 0;
+
+  padding: 7px 10px;
+
+  border: 1px solid rgba(239, 68, 68, 0.15);
+
+  border-radius: 5px;
+
+  background: rgba(239, 68, 68, 0.04);
+
+  color: #d88b8b;
+
+  font-size: 10px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.remove-button:hover {
+  color: #ffaaaa;
+
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* =========================================================
+   THUMBNAIL EDITOR
+========================================================= */
+
+.thumbnail-editor {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.25fr)
+    minmax(220px, 0.75fr);
+
+  gap: 18px;
+
+  align-items: stretch;
+}
+
+.thumbnail-preview-wrapper {
+  min-width: 0;
+
+  overflow: hidden;
+
+  aspect-ratio: 16 / 9;
+
+  border-radius: 7px;
+
+  background: #080b0d;
+}
+
+.thumbnail-preview {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    filter 0.25s ease;
+}
+
+/* =========================================================
+   THUMBNAIL FILTERS
+========================================================= */
+
+.filter-normal {
+  filter: none;
+}
+
+.filter-contrast {
+  filter: contrast(1.18) saturate(1.08);
+}
+
+.filter-bright {
+  filter: brightness(1.12) saturate(1.08);
+}
+
+.filter-cinematic {
+  filter: contrast(1.15) brightness(0.9) saturate(0.82);
+}
+
+/* =========================================================
+   THUMBNAIL TOOLS
+========================================================= */
+
+.thumbnail-tools {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  min-width: 0;
+}
+
+.thumbnail-tools h3 {
+  margin: 0 0 5px;
+
+  color: #e5e9ea;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.thumbnail-tools p {
+  margin: 0;
+
+  color: #697478;
+
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  margin: 18px 0;
+}
+
+.filter-button {
+  padding: 6px 9px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+
+  border-radius: 5px;
+
+  background: #0c1114;
+
+  color: #7e898d;
+
+  font-size: 9px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.filter-button:hover {
+  color: #dce1e3;
+
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.filter-button.active {
+  border-color: rgba(36, 216, 232, 0.35);
+
+  background: rgba(36, 216, 232, 0.07);
+
+  color: #24d8e8;
+}
+
+.thumbnail-file-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  padding-top: 12px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 8px;
+}
+
+.label-row label {
+  color: #dfe4e5;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.label-row span {
+  color: #555f63;
+
+  font-size: 9px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  border: 1px solid rgba(255, 255, 255, 0.075);
+
+  border-radius: 6px;
+
+  outline: none;
+
+  background: #0c1114;
+
+  color: #f1f3f4;
+
+  font-size: 12px;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.form-group input {
+  height: 44px;
+
+  padding: 0 13px;
+}
+
+.form-group textarea {
+  min-height: 140px;
+
+  padding: 12px 13px;
+
+  resize: vertical;
+
+  line-height: 1.6;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #4f5a5e;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: rgba(36, 216, 232, 0.4);
+
+  background: #0e1518;
+}
+
+/* =========================================================
+   PUBLISH SUMMARY
+========================================================= */
+
+.publish-summary {
+  padding: 18px;
+}
+
+.summary-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 15px;
+}
+
+.summary-heading h2 {
+  margin: 0;
+
+  color: #e9edef;
+
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.draft-status {
+  padding: 4px 7px;
+
+  border-radius: 4px;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  color: #7e898d;
+
+  font-size: 9px;
+}
+
+/* =========================================================
+   SUMMARY PREVIEW
+========================================================= */
+
+.summary-preview {
+  position: relative;
+
+  overflow: hidden;
+
+  aspect-ratio: 16 / 9;
+
+  margin-bottom: 18px;
+
+  border-radius: 6px;
+
+  background: #080b0d;
+}
+
+.summary-thumbnail {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+.summary-placeholder {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  color: #485357;
+}
+
+.summary-placeholder span {
+  font-size: 22px;
+}
+
+.summary-placeholder small {
+  font-size: 9px;
+}
+
+.summary-overlay {
+  position: absolute;
+
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  padding: 35px 10px 10px;
+
+  background:
+    linear-gradient(
+      transparent,
+      rgba(0, 0, 0, 0.8)
+    );
+}
+
+.summary-overlay span {
+  display: block;
+
+  overflow: hidden;
+
+  color: #fff;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* =========================================================
+   SUMMARY INFO
+========================================================= */
+
+.summary-info {
+  margin-bottom: 18px;
+}
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 9px 0;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+}
+
+.summary-row:last-child {
+  border-bottom: 0;
+}
+
+.summary-row span {
+  color: #687377;
+
+  font-size: 10px;
+}
+
+.summary-row strong {
+  color: #b9c1c4;
+
+  font-size: 10px;
+  font-weight: 500;
+}
+
+/* =========================================================
+   PUBLISH BUTTON
+========================================================= */
+
+.publish-button {
+  width: 100%;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  border: 0;
+
+  border-radius: 6px;
+
+  background: #24d8e8;
+
+  color: #061013;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.publish-button:hover:not(:disabled) {
+  filter: brightness(1.08);
+
+  transform: translateY(-1px);
+}
+
+.publish-button:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+.publish-button span {
+  font-size: 16px;
+}
+
+.publish-note {
+  margin: 11px 3px 0;
+
+  color: #505b5f;
+
+  font-size: 9px;
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.button-spinner {
+  width: 13px;
+  height: 13px;
+
+  border: 2px solid rgba(6, 16, 19, 0.25);
+
+  border-top-color: #061013;
+
+  border-radius: 50%;
+
+  animation:
+    publish-spin 0.7s linear infinite;
+}
+
+@keyframes publish-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE SIDEBAR WIDTHS
+========================================================= */
+
+@media (max-width: 1000px) {
+  :root {
+    --streamo-sidebar-collapsed: 65px;
+    --streamo-sidebar-expanded: 220px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — SMALL DESKTOP
+========================================================= */
+
+@media (max-width: 1100px) {
+  .publish-layout {
+    grid-template-columns:
+      minmax(0, 1fr) 280px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+  .publish-page {
+    padding: 35px 22px 70px;
+  }
+
+  .publish-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .publish-sidebar {
+    position: static;
+  }
+
+  .thumbnail-editor {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE SIDEBAR — SMALL TABLET
+========================================================= */
+
+@media (max-width: 700px) {
+  :root {
+    --streamo-sidebar-collapsed: 58px;
+    --streamo-sidebar-expanded: 200px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 550px) {
+  /*
+    Sidebar becomes a bottom navigation at this size.
+    Therefore the publish page uses the full viewport width.
+  */
+
+  .publish-page,
+  body:has(.sidebar:hover) .publish-page {
+    width: 100%;
+    margin-left: 0;
+
+    padding: 30px 15px 90px;
+  }
+
+  .publish-header h1 {
+    font-size: 30px;
+  }
+
+  .publish-card {
+    padding: 17px;
+
+    margin-bottom: 14px;
+  }
+
+  .card-heading {
+    margin-bottom: 16px;
+  }
+
+  .upload-zone {
+    min-height: 190px;
+
+    padding: 20px;
+  }
+
+  .preview-footer {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .remove-button {
+    width: 100%;
+  }
+
+  .thumbnail-file-row {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .thumbnail-file-row .remove-button {
+    width: 100%;
+  }
+
+  .filter-row {
+    margin: 15px 0;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+.upload-zone:focus-visible,
+.filter-button:focus-visible,
+.remove-button:focus-visible,
+.publish-button:focus-visible,
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+  outline: 2px solid #24d8e8;
+
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+
+    transition-duration: 0.01ms !important;
+
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+  }
+}

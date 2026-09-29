@@ -1,0 +1,11 @@
+/* #root {
+  min-height: 100vh;
+} */
+
+/* Space for the fixed sidebar */
+/* @media (min-width: 1001px) {
+  #root {
+    padding-left: 170px;
+    box-sizing: border-box;
+  }
+} */
