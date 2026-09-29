@@ -12,7 +12,7 @@ import WatchHistory from "./components/pages/WatchHistory";
 import Search from "./components/pages/Search";
 import Profile from "./components/pages/Profile";
 import ChannelProfile from "./components/pages/ChannelProfile";
-import Reel from "./components/pages/reel";
+import Reel from "./components/pages/Reel";
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
