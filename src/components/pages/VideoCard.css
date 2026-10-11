@@ -1,3 +1,4 @@
+
 /* =========================================================
    STREAMO WATCH PAGE
    Sidebar-aware responsive layout
@@ -21,13 +22,6 @@
     Arial,
     sans-serif;
 
-  /*
-    IMPORTANT:
-    Sidebar collapsed = 58px
-    Sidebar expanded = 220px
-
-    The page automatically moves with the sidebar.
-  */
   width: calc(100% - 58px);
   margin-left: 58px;
 
@@ -38,32 +32,20 @@
     margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-
 /* =========================================================
    SIDEBAR-AWARE LAYOUT
 ========================================================= */
-
-/*
-   When the mouse is over the sidebar,
-   reserve the expanded sidebar width.
-*/
 
 body:has(.sidebar:hover) .watch-page {
   width: calc(100% - 220px);
   margin-left: 220px;
 }
 
-
-/*
-   Keep the page from creating horizontal overflow.
-*/
-
 html,
 body {
   max-width: 100%;
   overflow-x: hidden;
 }
-
 
 /* =========================================================
    CONTAINER
@@ -75,14 +57,10 @@ body {
 
   margin: 0 auto;
 
-  padding:
-    92px
-    28px
-    70px;
+  padding: 92px 28px 70px;
 
   box-sizing: border-box;
 }
-
 
 /* =========================================================
    WATCH LAYOUT
@@ -108,7 +86,6 @@ body {
   min-width: 0;
 }
 
-
 /* =========================================================
    VIDEO PLAYER
 ========================================================= */
@@ -122,9 +99,7 @@ body {
 
   background: #030506;
 
-  border:
-    1px solid
-    #1c292e;
+  border: 1px solid #1c292e;
 
   border-radius: 14px;
 
@@ -143,12 +118,10 @@ body {
   box-sizing: border-box;
 }
 
-
 .main-player::before {
   content: "";
 
   position: absolute;
-
   inset: 0;
 
   z-index: 1;
@@ -165,12 +138,10 @@ body {
     );
 }
 
-
 .main-player::after {
   content: "";
 
   position: absolute;
-
   inset: 0;
 
   z-index: 10;
@@ -180,11 +151,8 @@ body {
   border-radius: inherit;
 
   box-shadow:
-    inset
-    0 1px 0
-    rgba(255, 255, 255, 0.04);
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
-
 
 /* =========================================================
    HTML5 VIDEO
@@ -205,7 +173,6 @@ body {
   cursor: pointer;
 }
 
-
 /* =========================================================
    YOUTUBE PLAYER
 ========================================================= */
@@ -220,7 +187,6 @@ body {
 
 .youtube-iframe {
   position: absolute;
-
   inset: 0;
 
   z-index: 2;
@@ -231,12 +197,10 @@ body {
   display: block;
 
   border: none;
-
   outline: none;
 
   background: #000;
 }
-
 
 /* =========================================================
    CENTER PLAY
@@ -260,17 +224,13 @@ body {
 
   padding: 0;
 
-  transform:
-    translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 
   border-radius: 50%;
 
-  background:
-    rgba(0, 0, 0, 0.62);
+  background: rgba(0, 0, 0, 0.62);
 
   backdrop-filter: blur(14px);
 
@@ -278,9 +238,7 @@ body {
 
   cursor: pointer;
 
-  box-shadow:
-    0 10px 35px
-    rgba(0, 0, 0, 0.35);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
 
   transition:
     transform 0.2s ease,
@@ -290,30 +248,22 @@ body {
 }
 
 .center-play-button:hover {
-  transform:
-    translate(-50%, -50%)
-    scale(1.08);
+  transform: translate(-50%, -50%) scale(1.08);
 
-  background:
-    rgba(36, 216, 232, 0.92);
+  background: rgba(36, 216, 232, 0.92);
 
   border-color: #24d8e8;
 
   color: #071013;
 
-  box-shadow:
-    0 12px 40px
-    rgba(36, 216, 232, 0.2);
+  box-shadow: 0 12px 40px rgba(36, 216, 232, 0.2);
 }
 
 .play-icon {
   margin-left: 4px;
-
   font-size: 25px;
-
   line-height: 1;
 }
-
 
 /* =========================================================
    CONTROL BAR
@@ -328,9 +278,7 @@ body {
 
   z-index: 7;
 
-  padding:
-    0 15px
-    11px;
+  padding: 0 15px 11px;
 
   background:
     linear-gradient(
@@ -347,22 +295,15 @@ body {
 
 .controls-visible {
   opacity: 1;
-
-  transform:
-    translateY(0);
-
+  transform: translateY(0);
   pointer-events: auto;
 }
 
 .controls-hidden {
   opacity: 0;
-
-  transform:
-    translateY(8px);
-
+  transform: translateY(8px);
   pointer-events: none;
 }
-
 
 /* =========================================================
    PROGRESS
@@ -370,10 +311,7 @@ body {
 
 .video-progress-wrapper {
   width: 100%;
-
-  padding:
-    8px 0
-    10px;
+  padding: 8px 0 10px;
 }
 
 .video-progress {
@@ -394,18 +332,14 @@ body {
       to right,
       #24d8e8 0%,
       #24d8e8 var(--progress),
-      rgba(255, 255, 255, 0.28)
-      var(--progress),
-      rgba(255, 255, 255, 0.28)
-      100%
+      rgba(255, 255, 255, 0.28) var(--progress),
+      rgba(255, 255, 255, 0.28) 100%
     );
 
   outline: none;
-
   cursor: pointer;
 
-  transition:
-    height 0.15s ease;
+  transition: height 0.15s ease;
 }
 
 .video-progress:hover {
@@ -414,17 +348,13 @@ body {
 
 .video-progress::-webkit-slider-runnable-track {
   height: 100%;
-
   background: transparent;
-
   border-radius: inherit;
 }
 
 .video-progress::-moz-range-track {
   height: 100%;
-
   background: transparent;
-
   border-radius: inherit;
 }
 
@@ -438,19 +368,15 @@ body {
   margin-top: -4px;
 
   border: none;
-
   border-radius: 50%;
 
   background: #24d8e8;
 
-  box-shadow:
-    0 0 0 3px
-    rgba(36, 216, 232, 0.12);
+  box-shadow: 0 0 0 3px rgba(36, 216, 232, 0.12);
 
   opacity: 0;
 
-  transition:
-    opacity 0.15s ease;
+  transition: opacity 0.15s ease;
 }
 
 .video-progress:hover::-webkit-slider-thumb {
@@ -462,7 +388,6 @@ body {
   height: 12px;
 
   border: none;
-
   border-radius: 50%;
 
   background: #24d8e8;
@@ -474,18 +399,14 @@ body {
   opacity: 1;
 }
 
-
 /* =========================================================
    CONTROL ROW
 ========================================================= */
 
 .control-row {
   display: flex;
-
   align-items: center;
-
   gap: 7px;
-
   min-width: 0;
 }
 
@@ -494,7 +415,6 @@ body {
   height: 36px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
@@ -503,15 +423,12 @@ body {
   padding: 0;
 
   border: none;
-
   border-radius: 8px;
 
   background: transparent;
-
   color: #fff;
 
   font-family: inherit;
-
   font-size: 15px;
 
   cursor: pointer;
@@ -523,9 +440,7 @@ body {
 }
 
 .player-control:hover {
-  background:
-    rgba(255, 255, 255, 0.12);
-
+  background: rgba(255, 255, 255, 0.12);
   color: #24d8e8;
 }
 
@@ -538,24 +453,19 @@ body {
   min-width: 0;
 }
 
-
 /* =========================================================
    VOLUME
 ========================================================= */
 
 .volume-control {
   display: flex;
-
   align-items: center;
-
   gap: 2px;
-
   flex-shrink: 0;
 }
 
 .volume-slider {
   width: 0;
-
   opacity: 0;
 
   appearance: none;
@@ -564,9 +474,7 @@ body {
   height: 3px;
 
   border-radius: 20px;
-
-  background:
-    rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.35);
 
   cursor: pointer;
 
@@ -577,7 +485,6 @@ body {
 
 .volume-control:hover .volume-slider {
   width: 72px;
-
   opacity: 1;
 }
 
@@ -589,7 +496,6 @@ body {
   height: 10px;
 
   border: none;
-
   border-radius: 50%;
 
   background: #24d8e8;
@@ -600,12 +506,10 @@ body {
   height: 10px;
 
   border: none;
-
   border-radius: 50%;
 
   background: #24d8e8;
 }
-
 
 /* =========================================================
    TIME
@@ -613,21 +517,16 @@ body {
 
 .player-time {
   display: flex;
-
   align-items: center;
-
   gap: 5px;
 
   margin-left: 5px;
 
   color: #e7edef;
-
   font-size: 11px;
-
   font-weight: 500;
 
   white-space: nowrap;
-
   flex-shrink: 0;
 }
 
@@ -635,38 +534,25 @@ body {
   color: #718087;
 }
 
-
 /* =========================================================
    CINEMA
 ========================================================= */
 
 .cinema-active {
   color: #24d8e8;
-
-  background:
-    rgba(36, 216, 232, 0.1);
+  background: rgba(36, 216, 232, 0.1);
 }
-
-
-/* =========================================================
-   MORE BUTTON
-========================================================= */
 
 .more-control {
   font-size: 22px;
-
   line-height: 1;
-
   letter-spacing: 1px;
 }
 
 .more-active {
   color: #24d8e8;
-
-  background:
-    rgba(36, 216, 232, 0.1);
+  background: rgba(36, 216, 232, 0.1);
 }
-
 
 /* =========================================================
    THREE DOT MENU
@@ -692,46 +578,29 @@ body {
 
   padding: 7px;
 
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.08);
-
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
 
-  background:
-    rgba(19, 24, 27, 0.97);
+  background: rgba(19, 24, 27, 0.97);
 
-  backdrop-filter:
-    blur(18px);
+  backdrop-filter: blur(18px);
 
-  box-shadow:
-    0 18px 50px
-    rgba(0, 0, 0, 0.55);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
 
-  animation:
-    menuAppear
-    0.15s ease
-    both;
+  animation: menuAppear 0.15s ease both;
 }
 
 @keyframes menuAppear {
   from {
     opacity: 0;
-
-    transform:
-      translateY(7px)
-      scale(0.98);
+    transform: translateY(7px) scale(0.98);
   }
 
   to {
     opacity: 1;
-
-    transform:
-      translateY(0)
-      scale(1);
+    transform: translateY(0) scale(1);
   }
 }
-
 
 /* =========================================================
    MENU ITEM
@@ -739,31 +608,22 @@ body {
 
 .player-menu-item {
   width: 100%;
-
   min-height: 43px;
 
   display: flex;
-
   align-items: center;
-
   gap: 12px;
 
-  padding:
-    9px
-    11px;
+  padding: 9px 11px;
 
   border: none;
-
   border-radius: 8px;
 
   background: transparent;
-
   color: #edf2f3;
 
   font-family: inherit;
-
   font-size: 12px;
-
   text-align: left;
 
   cursor: pointer;
@@ -774,9 +634,7 @@ body {
 }
 
 .player-menu-item:hover {
-  background:
-    rgba(255, 255, 255, 0.09);
-
+  background: rgba(255, 255, 255, 0.09);
   color: #24d8e8;
 }
 
@@ -784,11 +642,9 @@ body {
   width: 22px;
 
   display: flex;
-
   justify-content: center;
 
   color: #d6dfe1;
-
   font-size: 15px;
 }
 
@@ -798,20 +654,15 @@ body {
 
 .menu-value {
   margin-left: auto;
-
   color: #7e8c91;
-
   font-size: 10px;
 }
 
 .menu-arrow {
   color: #76858a;
-
   font-size: 19px;
-
   line-height: 1;
 }
-
 
 /* =========================================================
    SPEED MENU
@@ -819,26 +670,16 @@ body {
 
 .speed-menu-header {
   display: flex;
-
   align-items: center;
-
   gap: 10px;
 
   min-height: 43px;
+  padding: 5px 7px 8px;
 
-  padding:
-    5px
-    7px
-    8px;
-
-  border-bottom:
-    1px solid
-    rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 
   color: #fff;
-
   font-size: 13px;
-
   font-weight: 600;
 }
 
@@ -847,53 +688,41 @@ body {
   height: 32px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
   padding: 0;
 
   border: none;
-
   border-radius: 50%;
 
   background: transparent;
-
   color: #fff;
 
   font-size: 22px;
-
   cursor: pointer;
 }
 
 .speed-back-button:hover {
-  background:
-    rgba(255, 255, 255, 0.1);
-
+  background: rgba(255, 255, 255, 0.1);
   color: #24d8e8;
 }
 
 .speed-option {
   justify-content: space-between;
-
   padding-left: 20px;
 }
 
 .selected-speed {
   color: #24d8e8;
-
-  background:
-    rgba(36, 216, 232, 0.08);
+  background: rgba(36, 216, 232, 0.08);
 }
 
 .speed-check {
   margin-left: auto;
-
   color: #24d8e8;
-
   font-size: 16px;
 }
-
 
 /* =========================================================
    CINEMA MODE
@@ -911,7 +740,6 @@ body {
 
 .cinema-mode .watch-container {
   width: 100%;
-
   max-width: 2000px;
 
   padding-left: 20px;
@@ -928,13 +756,11 @@ body {
 
 .cinema-mode .main-player {
   width: 100%;
-
   max-width: 2000px;
 
   margin: 0 auto;
 
   aspect-ratio: 21 / 9;
-
   border-radius: 10px;
 }
 
@@ -942,43 +768,30 @@ body {
   position: static;
 
   width: 100%;
-
   max-width: 1200px;
-
   max-height: none;
 
   overflow: visible;
 
-  margin:
-    35px auto
-    0;
-
+  margin: 35px auto 0;
   padding-right: 0;
 }
-
 
 /* =========================================================
    TITLE
 ========================================================= */
 
 .watch-title {
-  margin:
-    22px 0
-    8px;
+  margin: 22px 0 8px;
 
   color: #f5f7f8;
-
   font-size: 23px;
-
   line-height: 1.4;
-
   font-weight: 600;
-
   letter-spacing: -0.4px;
 
   overflow-wrap: anywhere;
 }
-
 
 /* =========================================================
    META
@@ -986,16 +799,12 @@ body {
 
 .watch-meta {
   display: flex;
-
   align-items: center;
-
   gap: 7px;
 
   color: #87949a;
-
   font-size: 13px;
 }
-
 
 /* =========================================================
    CHANNEL
@@ -1003,30 +812,21 @@ body {
 
 .video-actions-row {
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
 
   gap: 24px;
-
   margin-top: 22px;
 
-  padding:
-    17px 0;
+  padding: 17px 0;
 
-  border-top:
-    1px solid #1b2529;
-
-  border-bottom:
-    1px solid #1b2529;
+  border-top: 1px solid #1b2529;
+  border-bottom: 1px solid #1b2529;
 }
 
 .channel-info {
   display: flex;
-
   align-items: center;
-
   gap: 12px;
 
   min-width: 0;
@@ -1040,23 +840,18 @@ body {
   min-height: 48px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
   padding: 0;
 
-  border:
-    2px solid #26373d;
-
+  border: 2px solid #26373d;
   border-radius: 50%;
 
   background: #11191d;
 
   overflow: hidden;
-
   cursor: pointer;
-
   flex-shrink: 0;
 
   box-sizing: border-box;
@@ -1069,12 +864,8 @@ body {
 
 .channel-avatar-button:hover {
   border-color: #24d8e8;
-
   transform: scale(1.04);
-
-  box-shadow:
-    0 0 0 4px
-    rgba(36, 216, 232, 0.08);
+  box-shadow: 0 0 0 4px rgba(36, 216, 232, 0.08);
 }
 
 .channel-avatar-button img {
@@ -1082,17 +873,14 @@ body {
   height: 100%;
 
   display: block;
-
   object-fit: cover;
 
   border: none;
-
   border-radius: 50%;
 }
 
 .channel-details {
   min-width: 120px;
-
   cursor: pointer;
 }
 
@@ -1100,15 +888,11 @@ body {
   margin: 0;
 
   color: #f5f7f8;
-
   font-size: 14px;
-
   font-weight: 600;
-
   line-height: 1.35;
 
-  transition:
-    color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .channel-details:hover h3 {
@@ -1116,15 +900,10 @@ body {
 }
 
 .channel-details p {
-  margin:
-    3px 0
-    0;
-
+  margin: 3px 0 0;
   color: #78868c;
-
   font-size: 11px;
 }
-
 
 /* =========================================================
    SUBSCRIBE
@@ -1133,25 +912,16 @@ body {
 .subscribe-btn {
   margin-left: 8px;
 
-  padding:
-    9px
-    18px;
+  padding: 9px 18px;
 
-  border:
-    1px solid
-    rgba(36, 216, 232, 0.35);
-
+  border: 1px solid rgba(36, 216, 232, 0.35);
   border-radius: 22px;
 
-  background:
-    rgba(36, 216, 232, 0.1);
-
+  background: rgba(36, 216, 232, 0.1);
   color: #24d8e8;
 
   font-family: inherit;
-
   font-size: 12px;
-
   font-weight: 600;
 
   cursor: pointer;
@@ -1165,15 +935,10 @@ body {
 
 .subscribe-btn:hover {
   background: #24d8e8;
-
   color: #071013;
-
   border-color: #24d8e8;
-
-  transform:
-    translateY(-1px);
+  transform: translateY(-1px);
 }
-
 
 /* =========================================================
    ACTION BUTTONS
@@ -1181,42 +946,28 @@ body {
 
 .action-buttons {
   display: flex;
-
   align-items: center;
-
   gap: 8px;
-
   min-width: 0;
 }
 
 .action-btn {
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   gap: 7px;
 
   min-height: 38px;
+  padding: 8px 14px;
 
-  padding:
-    8px
-    14px;
-
-  border:
-    1px solid #202d32;
-
+  border: 1px solid #202d32;
   border-radius: 22px;
 
   background: #11191d;
-
   color: #d8e0e3;
 
   font-family: inherit;
-
   font-size: 12px;
-
   white-space: nowrap;
 
   cursor: pointer;
@@ -1230,29 +981,20 @@ body {
 
 .action-btn:hover {
   border-color: #2d444b;
-
   background: #182328;
-
-  transform:
-    translateY(-1px);
+  transform: translateY(-1px);
 }
 
 .action-btn span {
   font-size: 16px;
-
   line-height: 1;
 }
 
 .active-action {
   color: #24d8e8;
-
-  border-color:
-    rgba(36, 216, 232, 0.35);
-
-  background:
-    rgba(36, 216, 232, 0.09);
+  border-color: rgba(36, 216, 232, 0.35);
+  background: rgba(36, 216, 232, 0.09);
 }
-
 
 /* =========================================================
    DESCRIPTION
@@ -1260,14 +1002,9 @@ body {
 
 .video-description {
   margin-top: 20px;
+  padding: 18px 20px;
 
-  padding:
-    18px
-    20px;
-
-  border:
-    1px solid #1d292e;
-
+  border: 1px solid #1d292e;
   border-radius: 15px;
 
   background:
@@ -1280,27 +1017,19 @@ body {
 
 .description-stats {
   display: flex;
-
   align-items: center;
-
   gap: 7px;
 
   color: #d9e1e4;
-
   font-size: 12px;
-
   font-weight: 600;
 }
 
 .video-description p {
-  margin:
-    10px 0
-    0;
+  margin: 10px 0 0;
 
   color: #aeb9bd;
-
   font-size: 13px;
-
   line-height: 1.75;
 
   white-space: pre-wrap;
@@ -1308,19 +1037,15 @@ body {
 
 .show-more {
   margin-top: 11px;
-
   padding: 0;
 
   border: none;
-
   background: transparent;
 
   color: #f2f5f6;
 
   font-family: inherit;
-
   font-size: 12px;
-
   font-weight: 600;
 
   cursor: pointer;
@@ -1330,22 +1055,18 @@ body {
   color: #24d8e8;
 }
 
-
 /* =========================================================
    COMMENTS
 ========================================================= */
 
 .comments-section {
   margin-top: 40px;
-
   padding-top: 4px;
 }
 
 .comments-heading {
   display: flex;
-
   align-items: center;
-
   gap: 10px;
 
   margin-bottom: 24px;
@@ -1353,23 +1074,18 @@ body {
 
 .comments-heading h2 {
   margin: 0;
-
   font-size: 19px;
-
   font-weight: 600;
 }
 
 .comments-heading span {
   color: #758388;
-
   font-size: 12px;
 }
 
 .comment-box {
   display: flex;
-
   align-items: center;
-
   gap: 12px;
 
   margin-bottom: 32px;
@@ -1377,26 +1093,18 @@ body {
 
 .comment-box input {
   flex: 1;
-
   min-width: 0;
 
-  padding:
-    11px
-    4px;
+  padding: 11px 4px;
 
   border: none;
-
-  border-bottom:
-    1px solid #2b383d;
-
+  border-bottom: 1px solid #2b383d;
   outline: none;
 
   background: transparent;
-
   color: #fff;
 
   font-family: inherit;
-
   font-size: 13px;
 }
 
@@ -1411,17 +1119,13 @@ body {
 .comment-avatar {
   width: 38px;
   height: 38px;
-
   min-width: 38px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  border:
-    1px solid #26343a;
-
+  border: 1px solid #26343a;
   border-radius: 50%;
 
   background: #172024;
@@ -1429,9 +1133,7 @@ body {
 
 .comment {
   display: flex;
-
   align-items: flex-start;
-
   gap: 12px;
 
   margin-bottom: 27px;
@@ -1443,32 +1145,25 @@ body {
 
 .comment-content strong {
   color: #f2f5f6;
-
   font-size: 13px;
 }
 
 .comment-content > span {
   margin-left: 8px;
-
   color: #657278;
-
   font-size: 10px;
 }
 
 .comment-content p {
-  margin:
-    7px 0;
+  margin: 7px 0;
 
   color: #b5c0c4;
-
   font-size: 13px;
-
   line-height: 1.5;
 }
 
 .comment-actions {
   display: flex;
-
   gap: 15px;
 }
 
@@ -1476,13 +1171,11 @@ body {
   padding: 0;
 
   border: none;
-
   background: transparent;
 
   color: #758288;
 
   font-family: inherit;
-
   font-size: 11px;
 
   cursor: pointer;
@@ -1492,7 +1185,6 @@ body {
   color: #24d8e8;
 }
 
-
 /* =========================================================
    RECOMMENDATIONS
 ========================================================= */
@@ -1501,21 +1193,15 @@ body {
   min-width: 0;
 
   position: sticky;
-
   top: 92px;
 
-  max-height:
-    calc(100vh - 110px);
+  max-height: calc(100vh - 110px);
 
   overflow-y: auto;
-
   padding-right: 3px;
 
   scrollbar-width: thin;
-
-  scrollbar-color:
-    #26383e
-    transparent;
+  scrollbar-color: #26383e transparent;
 }
 
 .recommendations::-webkit-scrollbar {
@@ -1528,7 +1214,6 @@ body {
 
 .recommendations::-webkit-scrollbar-thumb {
   background: #26383e;
-
   border-radius: 10px;
 }
 
@@ -1538,12 +1223,9 @@ body {
 
 .recommendation-header h2 {
   margin: 0;
-
   font-size: 18px;
-
   font-weight: 600;
 }
-
 
 /* =========================================================
    CATEGORIES
@@ -1551,13 +1233,10 @@ body {
 
 .recommendation-categories {
   display: flex;
-
   gap: 7px;
 
   overflow-x: auto;
-
   margin-bottom: 18px;
-
   padding-bottom: 3px;
 
   scrollbar-width: none;
@@ -1570,21 +1249,15 @@ body {
 .recommendation-categories button {
   flex-shrink: 0;
 
-  padding:
-    7px
-    13px;
+  padding: 7px 13px;
 
-  border:
-    1px solid #202c30;
-
+  border: 1px solid #202c30;
   border-radius: 18px;
 
   background: #11191d;
-
   color: #9aa6aa;
 
   font-family: inherit;
-
   font-size: 11px;
 
   cursor: pointer;
@@ -1592,12 +1265,9 @@ body {
 
 .recommendation-categories button.active {
   border-color: #24d8e8;
-
   background: #24d8e8;
-
   color: #071013;
 }
-
 
 /* =========================================================
    RECOMMENDED CARD
@@ -1605,20 +1275,15 @@ body {
 
 .recommended-card {
   display: flex;
-
   gap: 11px;
 
   margin-bottom: 13px;
-
   padding: 7px;
 
-  border:
-    1px solid transparent;
-
+  border: 1px solid transparent;
   border-radius: 13px;
 
   color: #fff;
-
   text-decoration: none;
 
   transition:
@@ -1629,26 +1294,20 @@ body {
 
 .recommended-card:hover {
   border-color: #1e2c31;
-
   background: #11191d;
-
-  transform:
-    translateY(-1px);
+  transform: translateY(-1px);
 }
 
 .recommended-thumbnail {
   width: 140px;
-
   min-width: 140px;
 
   aspect-ratio: 16 / 9;
 
   position: relative;
-
   overflow: hidden;
 
   border-radius: 9px;
-
   background: #151d20;
 }
 
@@ -1657,15 +1316,12 @@ body {
   height: 100%;
 
   display: block;
-
   object-fit: cover;
 
-  transition:
-    transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
-.recommended-card:hover
-.recommended-thumbnail img {
+.recommended-card:hover .recommended-thumbnail img {
   transform: scale(1.045);
 }
 
@@ -1675,60 +1331,40 @@ body {
   right: 6px;
   bottom: 6px;
 
-  padding:
-    3px
-    5px;
+  padding: 3px 5px;
 
   border-radius: 4px;
-
-  background:
-    rgba(0, 0, 0, 0.88);
+  background: rgba(0, 0, 0, 0.88);
 
   color: #fff;
-
   font-size: 9px;
 }
 
 .recommended-info {
   min-width: 0;
-
-  padding:
-    2px
-    0;
+  padding: 2px 0;
 }
 
 .recommended-info h3 {
-  margin:
-    0
-    0
-    7px;
+  margin: 0 0 7px;
 
   color: #e9eef0;
-
   font-size: 12px;
-
   line-height: 1.45;
-
   font-weight: 600;
 
   display: -webkit-box;
-
   -webkit-line-clamp: 2;
-
   -webkit-box-orient: vertical;
 
   overflow: hidden;
 }
 
 .recommended-info p {
-  margin:
-    3px 0;
-
+  margin: 3px 0;
   color: #718087;
-
   font-size: 10px;
 }
-
 
 /* =========================================================
    LOADING / ERROR
@@ -1739,11 +1375,9 @@ body {
   min-height: 50vh;
 
   display: flex;
-
   flex-direction: column;
 
   align-items: center;
-
   justify-content: center;
 
   text-align: center;
@@ -1759,28 +1393,19 @@ body {
 
 .watch-error button {
   margin-top: 15px;
+  padding: 10px 18px;
 
-  padding:
-    10px
-    18px;
-
-  border:
-    1px solid #24d8e8;
-
+  border: 1px solid #24d8e8;
   border-radius: 22px;
 
-  background:
-    rgba(36, 216, 232, 0.1);
-
+  background: rgba(36, 216, 232, 0.1);
   color: #24d8e8;
 
   font-family: inherit;
-
   font-weight: 600;
 
   cursor: pointer;
 }
-
 
 /* =========================================================
    FOCUS
@@ -1789,19 +1414,15 @@ body {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
-  outline:
-    2px solid #24d8e8;
-
+  outline: 2px solid #24d8e8;
   outline-offset: 3px;
 }
-
 
 /* =========================================================
    TABLET
 ========================================================= */
 
 @media (max-width: 1200px) {
-
   .watch-container {
     padding-left: 20px;
     padding-right: 20px;
@@ -1817,33 +1438,22 @@ input:focus-visible {
 
   .recommended-thumbnail {
     width: 125px;
-
     min-width: 125px;
   }
 }
-
 
 /* =========================================================
    SIDEBAR + TABLET
 ========================================================= */
 
 @media (max-width: 1000px) {
-
-  /*
-     Sidebar:
-     collapsed = 56px
-     expanded = 210px
-  */
-
   .watch-page {
     width: calc(100% - 56px);
-
     margin-left: 56px;
   }
 
   body:has(.sidebar:hover) .watch-page {
     width: calc(100% - 210px);
-
     margin-left: 210px;
   }
 
@@ -1853,13 +1463,11 @@ input:focus-visible {
 
   .recommendations {
     position: static;
-
     max-height: none;
 
     overflow: visible;
 
     margin-top: 18px;
-
     padding-right: 0;
   }
 
@@ -1869,7 +1477,6 @@ input:focus-visible {
 
   .recommended-thumbnail {
     width: 180px;
-
     min-width: 180px;
   }
 
@@ -1878,36 +1485,23 @@ input:focus-visible {
   }
 }
 
-
 /* =========================================================
    TABLET / MOBILE
 ========================================================= */
 
 @media (max-width: 700px) {
-
-  /*
-     Sidebar:
-     collapsed = 52px
-     expanded = 195px
-  */
-
   .watch-page {
     width: calc(100% - 52px);
-
     margin-left: 52px;
   }
 
   body:has(.sidebar:hover) .watch-page {
     width: calc(100% - 195px);
-
     margin-left: 195px;
   }
 
   .watch-container {
-    padding:
-      78px
-      14px
-      100px;
+    padding: 78px 14px 100px;
   }
 
   .main-player {
@@ -1916,7 +1510,6 @@ input:focus-visible {
 
   .center-play-button {
     width: 58px;
-
     height: 58px;
   }
 
@@ -1926,7 +1519,6 @@ input:focus-visible {
 
   .player-control {
     width: 32px;
-
     height: 32px;
   }
 
@@ -1944,7 +1536,6 @@ input:focus-visible {
 
   .video-actions-row {
     flex-direction: column;
-
     align-items: flex-start;
   }
 
@@ -1955,7 +1546,6 @@ input:focus-visible {
   .channel-avatar-button {
     width: 45px;
     height: 45px;
-
     min-width: 45px;
     min-height: 45px;
   }
@@ -1972,7 +1562,6 @@ input:focus-visible {
     width: 100%;
 
     overflow-x: auto;
-
     padding-bottom: 3px;
 
     scrollbar-width: none;
@@ -1996,7 +1585,6 @@ input:focus-visible {
 
   .recommended-thumbnail {
     width: 180px;
-
     min-width: 180px;
   }
 
@@ -2007,15 +1595,11 @@ input:focus-visible {
 
   .cinema-mode .main-player {
     aspect-ratio: 16 / 9;
-
     border-radius: 5px;
   }
 
-  /* PLAYER MENU ON MOBILE */
-
   .player-more-menu {
     right: 8px;
-
     bottom: 58px;
   }
 
@@ -2024,45 +1608,94 @@ input:focus-visible {
   }
 }
 
-
 /* =========================================================
-   MOBILE
+   PHONE FIX
+   Sidebar remains fixed on the left.
+   Watch page uses the full phone width.
+   Removes the large blank top space.
 ========================================================= */
 
 @media (max-width: 500px) {
+  .watch-page,
+  .watch-page.cinema-mode {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+
+    margin-left: 0;
+    margin-right: 0;
+
+    overflow-x: clip;
+
+    transition: none;
+  }
 
   /*
-     Sidebar:
-     collapsed = 48px
-     expanded = 180px
+     Ignore sidebar hover expansion on phones.
+     This prevents the page jumping when the sidebar
+     receives a touch or hover event.
   */
-
-  .watch-page {
-    width: calc(100% - 48px);
-
-    margin-left: 48px;
-  }
-
   body:has(.sidebar:hover) .watch-page {
-    width: calc(100% - 180px);
-
-    margin-left: 180px;
+    width: 100%;
+    margin-left: 0;
   }
 
-  .watch-container {
-    padding:
-      70px
-      10px
-      90px;
+  .watch-container,
+  .cinema-mode .watch-container {
+    width: 100%;
+    max-width: none;
+
+    margin: 0;
+
+    padding: 56px 0 35px;
   }
 
-  .main-player {
-    border-radius: 8px;
+  .watch-layout,
+  .watch-page.cinema-mode .watch-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    width: 100%;
+    min-width: 0;
+
+    gap: 22px;
+  }
+
+  .main-video-section {
+    width: 100%;
+    min-width: 0;
+
+    margin: 0;
+  }
+
+  /*
+     Full-bleed video player.
+     No side gap beside the video.
+  */
+  .main-player,
+  .cinema-mode .main-player {
+    width: 100%;
+    max-width: none;
+
+    aspect-ratio: 16 / 9;
+
+    margin: 0;
+
+    border: 0;
+    border-radius: 0;
+  }
+
+  .main-player video,
+  .main-player .youtube-iframe {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
   }
 
   .center-play-button {
     width: 52px;
-
     height: 52px;
   }
 
@@ -2070,8 +1703,41 @@ input:focus-visible {
     font-size: 18px;
   }
 
+  /*
+     Keep text and controls inset slightly,
+     while the player stays full width.
+  */
+  .watch-title,
+  .watch-meta,
+  .video-actions-row,
+  .video-description,
+  .comments-section {
+    margin-right: 12px;
+    margin-left: 12px;
+  }
+
   .watch-title {
+    margin-top: 14px;
+    margin-bottom: 8px;
+
     font-size: 16px;
+  }
+
+  .watch-meta {
+    font-size: 11px;
+    flex-wrap: wrap;
+  }
+
+  .video-actions-row {
+    gap: 14px;
+    margin-top: 15px;
+    padding: 13px 0;
+  }
+
+  .channel-info {
+    width: 100%;
+    min-width: 0;
+    gap: 9px;
   }
 
   .channel-avatar-button {
@@ -2082,34 +1748,141 @@ input:focus-visible {
     min-height: 42px;
   }
 
-  .subscribe-btn {
-    padding:
-      8px
-      13px;
+  .channel-details {
+    min-width: 0;
+    flex: 1;
+  }
 
+  .channel-details h3 {
+    font-size: 12px;
+  }
+
+  .subscribe-btn {
+    margin-left: auto;
+
+    padding: 8px 13px;
     font-size: 11px;
+  }
+
+  .action-buttons {
+    width: 100%;
+    max-width: 100%;
+
+    overflow-x: auto;
+    padding-bottom: 3px;
+
+    scrollbar-width: none;
+  }
+
+  .action-buttons::-webkit-scrollbar {
+    display: none;
   }
 
   .action-btn {
     min-height: 36px;
 
-    padding:
-      7px
-      11px;
+    padding: 7px 11px;
 
     font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .video-description {
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  .video-description p {
+    font-size: 12px;
+  }
+
+  .comments-section {
+    margin-top: 25px;
+  }
+
+  /*
+     Recommendations appear below the video details,
+     like a mobile video feed.
+  */
+  .recommendations,
+  .cinema-mode .recommendations {
+    position: static;
+
+    width: 100%;
+    max-width: none;
+    max-height: none;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: visible;
+  }
+
+  .recommendation-header {
+    padding: 0 12px;
+    margin-bottom: 12px;
+  }
+
+  .recommendation-header h2 {
+    font-size: 16px;
+  }
+
+  .recommendation-categories {
+    padding: 0 12px 3px;
+    margin-bottom: 12px;
+  }
+
+  .recommended-card {
+    display: flex;
+    align-items: flex-start;
+
+    width: 100%;
+    max-width: none;
+
+    gap: 10px;
+
+    margin: 0 0 12px;
+    padding: 0 10px;
+
+    border: 0;
+    border-radius: 0;
+
+    box-sizing: border-box;
   }
 
   .recommended-thumbnail {
-    width: 145px;
+    flex: 0 0 42%;
 
-    min-width: 145px;
+    width: 42%;
+    min-width: 0;
+
+    aspect-ratio: 16 / 9;
+
+    border-radius: 7px;
+  }
+
+  .recommended-info {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+  }
+
+  .recommended-info h3 {
+    margin: 0 0 6px;
+
+    font-size: 11px;
+    line-height: 1.4;
+
+    -webkit-line-clamp: 2;
+  }
+
+  .recommended-info p {
+    margin: 3px 0;
+    font-size: 10px;
   }
 
   .video-control-bar {
-    padding:
-      0 8px
-      7px;
+    padding: 0 8px 7px;
   }
 
   .video-progress-wrapper {
@@ -2122,13 +1895,54 @@ input:focus-visible {
 
   .player-control {
     width: 29px;
+    height: 30px;
+  }
+
+  .player-more-menu {
+    right: 8px;
+    bottom: 52px;
   }
 
   .player-menu-panel {
-    width: 220px;
+    width: min(220px, calc(100vw - 65px));
+  }
+
+  /*
+     Prevent hover-only sidebar expansion on touch devices.
+     Desktop hover behavior remains unchanged.
+  */
+  .sidebar {
+    transition: none;
   }
 }
 
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 360px) {
+  .watch-container,
+  .cinema-mode .watch-container {
+    padding-top: 50px;
+  }
+
+  .recommended-thumbnail {
+    flex-basis: 40%;
+    width: 40%;
+  }
+
+  .recommended-info h3 {
+    font-size: 10px;
+  }
+
+  .player-control {
+    width: 26px;
+  }
+
+  .control-row {
+    gap: 3px;
+  }
+}
 
 /* =========================================================
    FULLSCREEN
@@ -2136,13 +1950,11 @@ input:focus-visible {
 
 .main-player:fullscreen {
   width: 100vw;
-
   height: 100vh;
 
   max-width: none;
 
   border: none;
-
   border-radius: 0;
 
   background: #000;
@@ -2151,7 +1963,6 @@ input:focus-visible {
 .main-player:fullscreen video,
 .main-player:fullscreen .youtube-iframe {
   width: 100%;
-
   height: 100%;
 
   object-fit: contain;
