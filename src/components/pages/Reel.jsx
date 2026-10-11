@@ -1,5 +1,4 @@
-
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -11,724 +10,496 @@ import {
   unlikeVideo,
 } from "../../redux/slices/videoSlice";
 
+import { toggleVideoSubscription } from "../../redux/slices/subscriptionSlice";
+
 function Reel() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const {
-    videos,
-    loading,
-    error,
-  } = useSelector((state) => state.videos);
+  const { videos = [], loading, error } = useSelector(
+    (state) => state.videos
+  );
+  const currentUser = useSelector((state) => state.auth?.user);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [muted, setMuted] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [likeBusy, setLikeBusy] = useState({});
+  const [subscriptionBusy, setSubscriptionBusy] = useState({});
+  const [subscriptionOverrides, setSubscriptionOverrides] = useState({});
 
   const videoRefs = useRef([]);
+  const viewerRef = useRef(null);
+  const touchStartY = useRef(null);
+  const wheelLock = useRef(false);
+  const wheelTimer = useRef(null);
+  const activeIndexRef = useRef(activeIndex);
 
-  // ==============================
-  // FETCH VIDEOS
-  // Same /videos API used by
-  // VideoCard
-  // ==============================
+  const activeVideo = videos[activeIndex];
+
   useEffect(() => {
-    if (!videos || videos.length === 0) {
-      dispatch(fetchVideos());
-    }
-  }, [dispatch, videos]);
-
-  // ==============================
-  // ACTIVE VIDEO
-  // ==============================
-  const activeVideo = videos?.[activeIndex];
-
-  // ==============================
-  // PLAY ACTIVE VIDEO
-  // ==============================
-  useEffect(() => {
-    const video = videoRefs.current[activeIndex];
-
-    if (!video) return;
-
-    video.currentTime = 0;
-    video.muted = muted;
-
-    video.play().catch(() => {});
-  }, [activeIndex, muted]);
-
-  // ==============================
-  // PAUSE INACTIVE VIDEOS
-  // ==============================
-  useEffect(() => {
-    videoRefs.current.forEach(
-      (video, index) => {
-        if (!video) return;
-
-        if (index !== activeIndex) {
-          video.pause();
-        }
-      }
-    );
+    activeIndexRef.current = activeIndex;
   }, [activeIndex]);
 
-  // ==============================
-  // KEYBOARD NAVIGATION
-  // ==============================
+  useEffect(() => {
+    if (!videos.length) dispatch(fetchVideos());
+  }, [dispatch, videos.length]);
+
+  const goToIndex = useCallback(
+    (nextIndex) => {
+      if (!videos.length) return;
+      const boundedIndex = Math.max(0, Math.min(nextIndex, videos.length - 1));
+      if (boundedIndex === activeIndexRef.current) return;
+      activeIndexRef.current = boundedIndex;
+      setActiveIndex(boundedIndex);
+      setProgress(0);
+    },
+    [videos.length]
+  );
+
+  const goNext = useCallback(() => {
+    goToIndex(activeIndexRef.current + 1);
+  }, [goToIndex]);
+
+  const goPrevious = useCallback(() => {
+    goToIndex(activeIndexRef.current - 1);
+  }, [goToIndex]);
+
+  // Autoplay the active reel and pause every other video.
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (!video) return;
+
+      if (index === activeIndex) {
+        video.muted = muted;
+        video.currentTime = 0;
+        video.play().catch(() => {
+          // Mobile browsers may require a user gesture before playback.
+        });
+      } else {
+        video.pause();
+      }
+    });
+  }, [activeIndex, muted, videos]);
+
+  // Keyboard navigation, matching the desktop reel controls.
   useEffect(() => {
     const handleKeyDown = (event) => {
+      const target = event.target;
+      if (
+        target instanceof HTMLElement &&
+        (target.isContentEditable ||
+          ["BUTTON", "INPUT", "TEXTAREA", "SELECT", "A"].includes(target.tagName))
+      ) {
+        return;
+      }
+
       if (event.key === "ArrowDown") {
-        goNext();
-      }
-
-      if (event.key === "ArrowUp") {
-        goPrevious();
-      }
-
-      if (event.key === " ") {
         event.preventDefault();
-
-        const video =
-          videoRefs.current[activeIndex];
-
+        goNext();
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        goPrevious();
+      } else if (event.key === " " && activeVideo) {
+        event.preventDefault();
+        const video = videoRefs.current[activeIndexRef.current];
         if (!video) return;
-
-        if (video.paused) {
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
+        if (video.paused) video.play().catch(() => {});
+        else video.pause();
       }
     };
 
-    window.addEventListener(
-      "keydown",
-      handleKeyDown
-    );
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeVideo, goNext, goPrevious]);
 
-    return () => {
-      window.removeEventListener(
-        "keydown",
-        handleKeyDown
-      );
-    };
-  }, [activeIndex, videos?.length]);
+  useEffect(
+    () => () => {
+      if (wheelTimer.current) clearTimeout(wheelTimer.current);
+    },
+    []
+  );
 
-  // ==============================
-  // NEXT REEL
-  // ==============================
-  const goNext = () => {
-    if (
-      activeIndex <
-      videos.length - 1
-    ) {
-      setActiveIndex(
-        (prev) => prev + 1
-      );
+  const handleWheel = (event) => {
+    // Do not switch reels when the user scrolls over a control/menu.
+    if (event.target.closest("button, a")) return;
+    if (wheelLock.current || Math.abs(event.deltaY) < 25) return;
 
-      setProgress(0);
+    wheelLock.current = true;
+    if (event.deltaY > 0) goNext();
+    else goPrevious();
+
+    if (wheelTimer.current) clearTimeout(wheelTimer.current);
+    wheelTimer.current = setTimeout(() => {
+      wheelLock.current = false;
+    }, 650);
+  };
+
+  const handleTouchStart = (event) => {
+    touchStartY.current = event.touches[0]?.clientY ?? null;
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchStartY.current === null) return;
+
+    const endY = event.changedTouches[0]?.clientY;
+    const distance = touchStartY.current - endY;
+    touchStartY.current = null;
+
+    if (Math.abs(distance) < 45) return;
+    if (distance > 0) goNext();
+    else goPrevious();
+  };
+
+  const handleLike = async (video) => {
+    if (!video?._id || likeBusy[video._id]) return;
+
+    const wasLiked = Boolean(video.isLiked);
+    setLikeBusy((current) => ({ ...current, [video._id]: true }));
+
+    try {
+      // Reuse the exact Redux actions used by VideoCard.jsx.
+      await dispatch(wasLiked ? unlikeVideo(video._id) : likeVideo(video._id)).unwrap();
+    } catch (requestError) {
+      console.error("Unable to update video like:", requestError);
+    } finally {
+      setLikeBusy((current) => ({ ...current, [video._id]: false }));
     }
   };
 
-  // ==============================
-  // PREVIOUS REEL
-  // ==============================
-  const goPrevious = () => {
-    if (activeIndex > 0) {
-      setActiveIndex(
-        (prev) => prev - 1
-      );
+  const getIsSubscribed = (video) => {
+    if (!video?._id) return false;
+    if (typeof subscriptionOverrides[video._id] === "boolean") {
+      return subscriptionOverrides[video._id];
+    }
+    return Boolean(video.isSubscribed ?? video.owner?.isSubscribed);
+  };
 
-      setProgress(0);
+  const handleSubscription = async (video) => {
+    if (!video?._id || subscriptionBusy[video._id]) return;
+
+    const ownerId = video.owner?._id;
+    if (!ownerId) {
+      console.error("Channel owner ID is missing.");
+      return;
+    }
+
+    // Do not show a subscribe action on the signed-in user's own channel.
+    if (currentUser?._id && currentUser._id === ownerId) return;
+
+    const wasSubscribed = getIsSubscribed(video);
+    setSubscriptionBusy((current) => ({ ...current, [video._id]: true }));
+
+    try {
+      // Same thunk/API action used by VideoCard.jsx.
+      const response = await dispatch(toggleVideoSubscription(video._id)).unwrap();
+      const data = response?.data ?? response;
+      const returnedState =
+        data?.subscribed ??
+        data?.isSubscribed ??
+        data?.subscription?.isSubscribed;
+
+      setSubscriptionOverrides((current) => ({
+        ...current,
+        [video._id]:
+          typeof returnedState === "boolean" ? returnedState : !wasSubscribed,
+      }));
+    } catch (requestError) {
+      console.error("Unable to update subscription:", requestError);
+    } finally {
+      setSubscriptionBusy((current) => ({ ...current, [video._id]: false }));
     }
   };
 
-  // ==============================
-  // LIKE / UNLIKE
-  // ==============================
-  const handleLike = (video) => {
-    if (!video?._id) return;
-
-    if (video.isLiked) {
-      dispatch(
-        unlikeVideo(video._id)
-      );
-    } else {
-      dispatch(
-        likeVideo(video._id)
-      );
-    }
+  const handleVideoClick = (event) => {
+    const video = event.currentTarget;
+    if (video.paused) video.play().catch(() => {});
+    else video.pause();
   };
 
-  // ==============================
-  // VIDEO PROGRESS
-  // ==============================
-  const handleTimeUpdate = (
-    event
-  ) => {
-    const video =
-      event.currentTarget;
-
+  const handleTimeUpdate = (event) => {
+    const video = event.currentTarget;
     if (!video.duration) return;
-
-    setProgress(
-      (video.currentTime /
-        video.duration) *
-        100
-    );
+    setProgress((video.currentTime / video.duration) * 100);
   };
 
-  // ==============================
-  // VIDEO ENDED
-  // ==============================
-  const handleVideoEnded = () => {
-    goNext();
-  };
-
-  // ==============================
-  // MUTE
-  // ==============================
-  const toggleMute = () => {
-    setMuted(
-      (prev) => !prev
-    );
-  };
-
-  // ==============================
-  // CLICK VIDEO
-  // ==============================
-  const handleVideoClick = (
-    event
-  ) => {
-    const video =
-      event.currentTarget;
-
-    if (video.paused) {
-      video.play().catch(() => {});
-    } else {
-      video.pause();
+  const openChannel = (video) => {
+    const ownerId = video?.owner?._id;
+    if (!ownerId) {
+      console.error("Channel owner ID is missing.");
+      return;
     }
+    // Match VideoCard.jsx exactly: channel route uses the owner's Mongo ID.
+    navigate(`/channel/${ownerId}`);
   };
 
-  // ==============================
-  // OPEN CHANNEL
-  // ==============================
-  const openChannel = (
-    username
-  ) => {
-    if (!username) return;
-
-    navigate(
-      `/channel/${username}`
-    );
+  const openVideo = (videoId) => {
+    if (videoId) navigate(`/watch/${videoId}`);
   };
 
-  // ==============================
-  // OPEN FULL VIDEO
-  // ==============================
-  const openVideo = (
-    videoId
-  ) => {
-    if (!videoId) return;
-
-    navigate(
-      `/watch/${videoId}`
-    );
+  const formatCount = (value = 0) => {
+    const count = Number(value) || 0;
+    if (count >= 1_000_000) return `${(count / 1_000_000).toFixed(1)}M`;
+    if (count >= 1_000) return `${(count / 1_000).toFixed(1)}K`;
+    return String(count);
   };
 
-  // ==============================
-  // LOADING
-  // ==============================
-  if (
-    loading &&
-    !videos?.length
-  ) {
+  if (loading && !videos.length) {
     return (
       <div className="reel-page">
         <div className="reel-loading">
-          <div className="reel-spinner"></div>
-
-          <p>
-            Loading reels...
-          </p>
+          <div className="reel-spinner" />
+          <p>Loading reels...</p>
         </div>
       </div>
     );
   }
 
-  // ==============================
-  // ERROR
-  // ==============================
-  if (
-    error &&
-    !videos?.length
-  ) {
+  if (error && !videos.length) {
     return (
       <div className="reel-page">
         <div className="reel-empty">
-
-          <div className="reel-empty-icon">
-            !
-          </div>
-
-          <h2>
-            Unable to load videos
-          </h2>
-
-          <p>
-            {error}
-          </p>
-
-          <button
-            onClick={() =>
-              dispatch(fetchVideos())
-            }
-          >
+          <div className="reel-empty-icon">!</div>
+          <h2>Unable to load videos</h2>
+          <p>{String(error)}</p>
+          <button type="button" onClick={() => dispatch(fetchVideos())}>
             Try again
           </button>
-
         </div>
       </div>
     );
   }
 
-  // ==============================
-  // NO VIDEOS
-  // ==============================
-  if (!videos?.length) {
+  if (!videos.length) {
     return (
       <div className="reel-page">
         <div className="reel-empty">
-
-          <div className="reel-empty-icon">
-            ▶
-          </div>
-
-          <h2>
-            No videos available
-          </h2>
-
-          <p>
-            There are no videos available
-            to watch right now.
-          </p>
-
-          <button
-            onClick={() =>
-              navigate("/")
-            }
-          >
+          <div className="reel-empty-icon">▶</div>
+          <h2>No videos available</h2>
+          <p>There are no videos available to watch right now.</p>
+          <button type="button" onClick={() => navigate("/")}>
             Back to Home
           </button>
-
         </div>
       </div>
     );
   }
 
   return (
-    <div className="reel-page">
-
-      {/* ==========================
-          BACK BUTTON
-      ========================== */}
-
+    <main
+      className="reel-page"
+      ref={viewerRef}
+      onWheel={handleWheel}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      aria-label="Video reels"
+    >
       <button
+        type="button"
         className="reel-back"
-        onClick={() =>
-          navigate(-1)
-        }
+        onClick={() => navigate(-1)}
+        aria-label="Go back"
       >
-        <span>←</span>
-        Back
+        <span aria-hidden="true">←</span> Back
       </button>
 
-      {/* ==========================
-          COUNTER
-      ========================== */}
-
-      <div className="reel-counter">
-        {activeIndex + 1} /{" "}
-        {videos.length}
+      <div className="reel-counter" aria-live="polite">
+        {activeIndex + 1} / {videos.length}
       </div>
-
-      {/* ==========================
-          REEL VIEWER
-      ========================== */}
 
       <div className="reel-viewer">
+        {videos.map((video, index) => {
+          const owner = video.owner || {};
+          const username = owner.userName || owner.username || "Creator";
+          const fullName = owner.fullName || username;
+          const avatar = owner.avatar || "/default-avatar.png";
+          const isActive = index === activeIndex;
+          const isLiked = Boolean(video.isLiked);
+          const isSubscribed = getIsSubscribed(video);
+          const isOwnChannel =
+            Boolean(currentUser?._id && currentUser._id === owner._id);
 
-        {videos.map(
-          (video, index) => {
+          return (
+            <article
+              key={video._id || index}
+              className={`reel-item ${
+                isActive ? "reel-item-active" : ""
+              } ${index < activeIndex ? "reel-item-before" : ""} ${
+                index > activeIndex ? "reel-item-after" : ""
+              }`}
+              aria-hidden={!isActive}
+            >
+              <video
+                ref={(element) => {
+                  videoRefs.current[index] = element;
+                }}
+                className="reel-video"
+                src={video.videoFile}
+                poster={video.thumbnail}
+                playsInline
+                loop={false}
+                muted={muted}
+                preload={isActive ? "auto" : "metadata"}
+                onClick={handleVideoClick}
+                onTimeUpdate={isActive ? handleTimeUpdate : undefined}
+                onEnded={isActive ? goNext : undefined}
+                tabIndex={isActive ? 0 : -1}
+              />
 
-            const owner =
-              video.owner || {};
+              <div className="reel-gradient" />
 
-            const username =
-              owner.userName ||
-              owner.username ||
-              "Unknown";
-
-            const fullName =
-              owner.fullName ||
-              username;
-
-            const avatar =
-              owner.avatar ||
-              "/default-avatar.png";
-
-            return (
-              <div
-                key={
-                  video._id ||
-                  index
-                }
-                className={`reel-item ${
-                  index === activeIndex
-                    ? "reel-item-active"
-                    : ""
-                }`}
-              >
-
-                {/* ==================
-                    VIDEO
-                ================== */}
-
-                <video
-                  ref={(element) => {
-                    videoRefs.current[
-                      index
-                    ] = element;
-                  }}
-                  className="reel-video"
-                  src={video.videoFile}
-                  playsInline
-                  loop={false}
-                  muted={muted}
-                  preload={
-                    index === activeIndex
-                      ? "auto"
-                      : "metadata"
-                  }
-                  onClick={
-                    handleVideoClick
-                  }
-                  onTimeUpdate={
-                    index === activeIndex
-                      ? handleTimeUpdate
-                      : undefined
-                  }
-                  onEnded={
-                    index === activeIndex
-                      ? handleVideoEnded
-                      : undefined
-                  }
-                />
-
-                {/* ==================
-                    GRADIENT
-                ================== */}
-
-                <div className="reel-gradient"></div>
-
-                {/* ==================
-                    TOP
-                ================== */}
-
-                {index ===
-                  activeIndex && (
+              {isActive && (
+                <>
                   <div className="reel-top">
-
-                    <div className="reel-top-title">
-                      Reels
-                    </div>
-
+                    <div className="reel-top-title">Reels</div>
                     <button
+                      type="button"
                       className="reel-mute"
-                      onClick={
-                        toggleMute
-                      }
-                      title={
-                        muted
-                          ? "Unmute"
-                          : "Mute"
-                      }
+                      onClick={() => setMuted((value) => !value)}
+                      title={muted ? "Unmute" : "Mute"}
+                      aria-label={muted ? "Unmute video" : "Mute video"}
                     >
-                      {muted
-                        ? "🔇"
-                        : "🔊"}
+                      {muted ? "🔇" : "🔊"}
                     </button>
-
                   </div>
-                )}
 
-                {/* ==================
-                    ACTIONS
-                ================== */}
-
-                {index ===
-                  activeIndex && (
                   <div className="reel-actions">
-
-                    {/* LIKE */}
-
                     <button
-                      className={`reel-action ${
-                        video.isLiked
-                          ? "reel-liked"
-                          : ""
-                      }`}
-                      onClick={() =>
-                        handleLike(
-                          video
-                        )
-                      }
+                      type="button"
+                      className={`reel-action ${isLiked ? "reel-liked" : ""}`}
+                      onClick={() => handleLike(video)}
+                      disabled={Boolean(likeBusy[video._id])}
+                      aria-label={isLiked ? "Unlike video" : "Like video"}
                     >
-
-                      <span className="reel-action-icon">
-                        {video.isLiked
-                          ? "♥"
-                          : "♡"}
-                      </span>
-
-                      <span>
-                        {video.likes ||
-                          0}
-                      </span>
-
+                      <span className="reel-action-icon">{isLiked ? "♥" : "♡"}</span>
+                      <span>{likeBusy[video._id] ? "…" : formatCount(video.likes)}</span>
                     </button>
 
-                    {/* COMMENT */}
-
                     <button
+                      type="button"
                       className="reel-action"
-                      onClick={() =>
-                        openVideo(
-                          video._id
-                        )
-                      }
+                      onClick={() => openVideo(video._id)}
+                      aria-label="Open video and comments"
                     >
-
-                      <span className="reel-action-icon">
-                        ♡
-                      </span>
-
-                      <span>
-                        Comment
-                      </span>
-
+                      <span className="reel-action-icon">▢</span>
+                      <span>Comments</span>
                     </button>
-
-                    {/* SHARE */}
 
                     <button
+                      type="button"
                       className="reel-action"
-                      onClick={async () => {
-                        try {
-                          await navigator.clipboard.writeText(
-                            `${window.location.origin}/watch/${video._id}`
-                          );
-
-                          alert(
-                            "Video link copied!"
-                          );
-                        } catch (
-                          error
-                        ) {
-                          console.error(
-                            "Share failed:",
-                            error
-                          );
-                        }
-                      }}
+                      onClick={() => openVideo(video._id)}
+                      aria-label="Open full video"
                     >
-
-                      <span className="reel-action-icon">
-                        ↗
-                      </span>
-
-                      <span>
-                        Share
-                      </span>
-
+                      <span className="reel-action-icon">↗</span>
+                      <span>Watch</span>
                     </button>
-
                   </div>
-                )}
 
-                {/* ==================
-                    VIDEO INFO
-                ================== */}
-
-                {index ===
-                  activeIndex && (
-                  <div className="reel-info">
-
-                    {/* CHANNEL */}
-
-                    <div
-                      className="reel-channel"
-                      onClick={() =>
-                        openChannel(
-                          username
-                        )
-                      }
-                    >
-
-                      <img
-                        src={avatar}
-                        alt={username}
-                        className="reel-avatar"
-                      />
-
-                      <div className="reel-channel-text">
-
-                        <strong>
-                          @{username}
-                        </strong>
-
-                        <span>
-                          {fullName}
-                        </span>
-
-                      </div>
-
+                  <section className="reel-info">
+                    <div className="reel-channel">
                       <button
-                        className="reel-follow"
-                        onClick={(
-                          event
-                        ) =>
-                          event.stopPropagation()
-                        }
+                        type="button"
+                        className="reel-avatar-button"
+                        onClick={() => openChannel(video)}
+                        aria-label={`Visit ${fullName}'s channel`}
                       >
-                        Follow
+                        <img className="reel-avatar" src={avatar} alt="" />
                       </button>
 
+                      <button
+                        type="button"
+                        className="reel-channel-name"
+                        onClick={() => openChannel(video)}
+                        title={`Visit ${fullName}'s channel`}
+                      >
+                        <strong>{fullName}</strong>
+                        <span>@{username}</span>
+                      </button>
+
+                      {!isOwnChannel && (
+                        <button
+                          type="button"
+                          className={`reel-follow ${
+                            isSubscribed ? "reel-follow-subscribed" : ""
+                          }`}
+                          disabled={Boolean(subscriptionBusy[video._id])}
+                          onClick={() => handleSubscription(video)}
+                        >
+                          {subscriptionBusy[video._id]
+                            ? "..."
+                            : isSubscribed
+                            ? "Subscribed"
+                            : "Subscribe"}
+                        </button>
+                      )}
                     </div>
 
-                    {/* TITLE */}
-
-                    <h2
+                    <button
+                      type="button"
                       className="reel-title"
-                      onClick={() =>
-                        openVideo(
-                          video._id
-                        )
-                      }
+                      onClick={() => openVideo(video._id)}
                     >
-                      {video.title}
-                    </h2>
-
-                    {/* DESCRIPTION */}
+                      {video.title || "Untitled video"}
+                    </button>
 
                     {video.description && (
-                      <p className="reel-description">
-                        {
-                          video.description
-                        }
-                      </p>
+                      <p className="reel-description">{video.description}</p>
                     )}
 
-                    {/* META */}
-
                     <div className="reel-meta">
-
-                      <span>
-                        {(
-                          video.views ||
-                          0
-                        ).toLocaleString()}{" "}
-                        views
-                      </span>
-
-                      <span>
-                        •
-                      </span>
-
-                      <span>
+                      <span>{formatCount(video.views)} views</span>
+                      <span>•</span>
+                      <button
+                        type="button"
+                        className="reel-full-video-link"
+                        onClick={() => openVideo(video._id)}
+                      >
                         Watch full video →
-                      </span>
-
+                      </button>
                     </div>
+                  </section>
 
-                  </div>
-                )}
-
-                {/* ==================
-                    PROGRESS
-                ================== */}
-
-                {index ===
-                  activeIndex && (
-                  <div className="reel-progress">
-
+                  <div className="reel-progress" aria-label="Video progress">
                     <div
                       className="reel-progress-fill"
-                      style={{
-                        width: `${progress}%`,
-                      }}
+                      style={{ width: `${progress}%` }}
                     />
-
                   </div>
-                )}
-
-              </div>
-            );
-          }
-        )}
-
-        {/* ==========================
-            NAVIGATION
-        ========================== */}
-
-        <div className="reel-navigation">
-
-          <button
-            className="reel-nav-button"
-            onClick={
-              goPrevious
-            }
-            disabled={
-              activeIndex === 0
-            }
-          >
-            ↑
-          </button>
-
-          <button
-            className="reel-nav-button"
-            onClick={
-              goNext
-            }
-            disabled={
-              activeIndex ===
-              videos.length - 1
-            }
-          >
-            ↓
-          </button>
-
-        </div>
-
+                </>
+              )}
+            </article>
+          );
+        })}
       </div>
 
-      {/* ==========================
-          HINT
-      ========================== */}
+      <div className="reel-navigation" aria-label="Reel navigation">
+        <button
+          type="button"
+          className="reel-nav-button"
+          onClick={goPrevious}
+          disabled={activeIndex === 0}
+          aria-label="Previous reel"
+        >
+          ↑
+        </button>
+        <button
+          type="button"
+          className="reel-nav-button"
+          onClick={goNext}
+          disabled={activeIndex === videos.length - 1}
+          aria-label="Next reel"
+        >
+          ↓
+        </button>
+      </div>
 
-      <div className="reel-hint">
-
+      <div className="reel-hint" aria-hidden="true">
         <span>↑</span>
-
-        <span>
-          Scroll to explore
-        </span>
-
+        <span>Scroll or swipe to explore</span>
         <span>↓</span>
-
       </div>
-
-    </div>
+    </main>
   );
 }
 
