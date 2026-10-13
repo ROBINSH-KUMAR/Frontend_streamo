@@ -28,6 +28,26 @@ function SearchIcon() {
   );
 }
 
+function PublishVideoIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="5" width="13" height="14" rx="2" />
+      <path d="m16 10 5-3v10l-5-3" />
+      <path d="M9.5 8v6M6.5 11h6" />
+    </svg>
+  );
+}
+
+function ReelIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="5" y="2.5" width="14" height="19" rx="3" />
+      <path d="m10 7 5 3-5 3V7Z" />
+      <path d="M8 2.8 12 7M15 2.8 19 7" />
+    </svg>
+  );
+}
+
 function BellIcon() {
   return (
     <svg viewBox="0 0 24 24">
@@ -126,35 +146,42 @@ function Navbar() {
       icon: <HomeIcon />,
     },
     {
-      label: "Search",
-      path: "/search",
-      icon: <SearchIcon />,
+      label: "Reel",
+      path: "/reel",
+      icon: <ReelIcon />,
     },
     {
       label: "Publish Video",
       path: "/publish-video",
-      icon: <BellIcon />,
+      icon: <PublishVideoIcon />,
     },
-    {
-      label: "Reel",
-      path: "/reel",
-      icon: <SeriesIcon />,
-    },
+
     {
       label: "Watch history",
       path: "/watch-history",
       icon: <SeriesIcon />,
+    },
+    ,
+    {
+      label: "Profile",
+      path: "/profile",
+      icon: <UserIcon />,
     },
     {
       label: "My favourites",
       path: "/favorites",
       icon: <HeartIcon />,
     },
-    {
-      label: "Profile",
-      path: "/profile",
-      icon: <UserIcon />,
-    },
+    // {
+    //   label: "Search",
+    //   path: "/search",
+    //   icon: <SearchIcon />,
+    // },
+    // {
+    //   label: "Publish Video",
+    //   path: "/publish-video",
+    //   icon: <BellIcon />,
+    // },
   ];
 
   /* =======================================================
@@ -176,16 +203,10 @@ function Navbar() {
   ======================================================= */
 
   const profileName =
-    user?.fullName ||
-    user?.userName ||
-    user?.username ||
-    "Profile";
+    user?.fullName || user?.userName || user?.username || "Profile";
 
   const profileAvatar =
-    user?.avatar ||
-    user?.avatarUrl ||
-    user?.profileImage ||
-    "";
+    user?.avatar || user?.avatarUrl || user?.profileImage || "";
 
   /* =======================================================
      RENDER
@@ -193,48 +214,32 @@ function Navbar() {
 
   return (
     <aside className="sidebar">
-
       {/* =================================================
           BRAND
       ================================================= */}
 
-      <Link
-        to="/"
-        className="brand"
-        aria-label="Streamo Home"
-      >
+      <Link to="/" className="brand" aria-label="Streamo Home">
         <LogoIcon />
 
-        <span className="brand-text">
-          Streamo
-        </span>
+        <span className="brand-text">Streamo</span>
       </Link>
 
       {/* =================================================
           NAVIGATION
       ================================================= */}
 
-      <nav
-        className="sidebar-nav"
-        aria-label="Main navigation"
-      >
+      <nav className="sidebar-nav" aria-label="Main navigation">
         {navigation.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
             end={item.path === "/"}
-            className={({ isActive }) =>
-              `nav-item ${isActive ? "active" : ""}`
-            }
+            className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
             title={item.label}
           >
-            <span className="nav-icon">
-              {item.icon}
-            </span>
+            <span className="nav-icon">{item.icon}</span>
 
-            <span className="nav-label">
-              {item.label}
-            </span>
+            <span className="nav-label">{item.label}</span>
           </NavLink>
         ))}
       </nav>
@@ -244,54 +249,30 @@ function Navbar() {
       ================================================= */}
 
       <div className="sidebar-profile">
-
         {user ? (
           <>
-
             {/* =========================================
                 PROFILE
             ========================================= */}
 
-            <Link
-              to="/profile"
-              className="profile-link"
-              title={profileName}
-            >
-
+            <Link to="/profile" className="profile-link" title={profileName}>
               <div className="profile-avatar-wrapper">
-
                 {profileAvatar ? (
-                  <img
-                    src={profileAvatar}
-                    alt={profileName}
-                  />
+                  <img src={profileAvatar} alt={profileName} />
                 ) : (
                   <div className="profile-avatar-fallback">
-                    {profileName
-                      .charAt(0)
-                      .toUpperCase()}
+                    {profileName.charAt(0).toUpperCase()}
                   </div>
                 )}
 
-                <span
-                  className="online-dot"
-                  aria-hidden="true"
-                />
-
+                <span className="online-dot" aria-hidden="true" />
               </div>
 
               <div className="profile-info">
+                <span className="profile-name">{profileName}</span>
 
-                <span className="profile-name">
-                  {profileName}
-                </span>
-
-                <span className="profile-status">
-                  Online
-                </span>
-
+                <span className="profile-status">Online</span>
               </div>
-
             </Link>
 
             {/* =========================================
@@ -305,36 +286,23 @@ function Navbar() {
               title="Logout"
               aria-label="Logout"
             >
-
               <LogoutIcon />
 
               <span>Logout</span>
-
             </button>
-
           </>
         ) : (
-
           /* ===========================================
              LOGIN
           =========================================== */
 
-          <Link
-            to="/login"
-            className="sidebar-login"
-            title="Login"
-          >
-
+          <Link to="/login" className="sidebar-login" title="Login">
             <LoginIcon />
 
             <span>Login</span>
-
           </Link>
-
         )}
-
       </div>
-
     </aside>
   );
 }
