@@ -38,15 +38,27 @@ function PublishVideoIcon() {
   );
 }
 
+
 function ReelIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <rect x="5" y="2.5" width="14" height="19" rx="3" />
-      <path d="m10 7 5 3-5 3V7Z" />
-      <path d="M8 2.8 12 7M15 2.8 19 7" />
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3" y="4" width="18" height="17" rx="3" />
+      <path d="M3 9h18" />
+      <path d="m6 4 3 5" />
+      <path d="m12 4 3 5" />
+      <path d="m10 12 5 3-5 3v-6Z" />
     </svg>
   );
 }
+
 
 function BellIcon() {
   return (
