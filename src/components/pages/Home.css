@@ -31,7 +31,6 @@ a {
   color: inherit;
 }
 
-
 /* =========================================================
    HOME PAGE
 ========================================================= */
@@ -58,7 +57,6 @@ a {
     width 0.28s ease,
     margin-left 0.28s ease;
 }
-
 
 /* =========================================================
    SIDEBAR
@@ -90,7 +88,6 @@ a {
     padding 0.28s ease;
 }
 
-
 /* =========================================================
    SIDEBAR HOVER EXPANSION
 ========================================================= */
@@ -99,14 +96,12 @@ a {
   width: 245px;
 }
 
-
 /* When sidebar expands, move the page over */
 
 body:has(.sidebar:hover) .home-page {
   width: calc(100% - 245px);
   margin-left: 245px;
 }
-
 
 /* =========================================================
    BRAND
@@ -157,7 +152,6 @@ body:has(.sidebar:hover) .home-page {
   flex-shrink: 0;
 }
 
-
 /* Small antenna/detail above TV */
 
 .brand-icon::before {
@@ -201,7 +195,6 @@ body:has(.sidebar:hover) .home-page {
   margin-left: 1px;
 }
 
-
 /* =========================================================
    BRAND NAME
 ========================================================= */
@@ -221,7 +214,6 @@ body:has(.sidebar:hover) .home-page {
   opacity: 1;
   transform: translateX(0);
 }
-
 
 /* =========================================================
    SIDEBAR NAVIGATION
@@ -302,7 +294,6 @@ body:has(.sidebar:hover) .home-page {
   stroke-linejoin: round;
 }
 
-
 /* =========================================================
    NAV LABEL
 ========================================================= */
@@ -322,7 +313,6 @@ body:has(.sidebar:hover) .home-page {
   opacity: 1;
   transform: translateX(0);
 }
-
 
 /* =========================================================
    SIDEBAR PROFILE
@@ -378,7 +368,6 @@ body:has(.sidebar:hover) .home-page {
   border: 2px solid #0c1114;
 }
 
-
 /* =========================================================
    MAIN CONTENT
 ========================================================= */
@@ -392,7 +381,6 @@ body:has(.sidebar:hover) .home-page {
 
   min-width: 0;
 }
-
 
 /* =========================================================
    HERO GRID
@@ -412,7 +400,6 @@ body:has(.sidebar:hover) .home-page {
   min-width: 0;
 }
 
-
 /* =========================================================
    HERO LINK
 ========================================================= */
@@ -426,7 +413,6 @@ body:has(.sidebar:hover) .home-page {
 
   text-decoration: none;
 }
-
 
 /* =========================================================
    MAIN HERO
@@ -445,7 +431,6 @@ body:has(.sidebar:hover) .home-page {
 
   overflow: hidden;
 }
-
 
 /* =========================================================
    HERO OVERLAY
@@ -471,7 +456,6 @@ body:has(.sidebar:hover) .home-page {
       rgba(12, 17, 20, 0.02) 58%
     );
 }
-
 
 /* =========================================================
    HERO RATING
@@ -505,12 +489,10 @@ body:has(.sidebar:hover) .home-page {
   font-size: 16px;
   font-weight: 600;
 
-  box-shadow:
-    0 0 12px rgba(36, 216, 232, 0.05);
+  box-shadow: 0 0 12px rgba(36, 216, 232, 0.05);
 
   backdrop-filter: blur(1px);
 }
-
 
 /* =========================================================
    HERO CONTENT
@@ -578,7 +560,6 @@ body:has(.sidebar:hover) .home-page {
   backdrop-filter: blur(4px);
 }
 
-
 /* =========================================================
    SIDE FEATURED
 ========================================================= */
@@ -628,16 +609,14 @@ body:has(.sidebar:hover) .home-page {
 
   inset: 0;
 
-  background:
-    linear-gradient(
-      0deg,
-      rgba(5, 9, 11, 0.96) 0%,
-      rgba(5, 9, 11, 0.65) 25%,
-      rgba(5, 9, 11, 0.25) 55%,
-      rgba(5, 9, 11, 0.04) 100%
-    );
+  background: linear-gradient(
+    0deg,
+    rgba(5, 9, 11, 0.96) 0%,
+    rgba(5, 9, 11, 0.65) 25%,
+    rgba(5, 9, 11, 0.25) 55%,
+    rgba(5, 9, 11, 0.04) 100%
+  );
 }
-
 
 /* =========================================================
    SIDE RATING
@@ -660,7 +639,6 @@ body:has(.sidebar:hover) .home-page {
 
   font-size: 13px;
 }
-
 
 /* =========================================================
    SIDE CARD CONTENT
@@ -698,7 +676,6 @@ body:has(.sidebar:hover) .home-page {
   line-height: 1.3;
 }
 
-
 /* =========================================================
    CONTENT SECTION
 ========================================================= */
@@ -725,7 +702,6 @@ body:has(.sidebar:hover) .home-page {
   font-weight: 650;
 }
 
-
 /* =========================================================
    VIDEO GRID
 ========================================================= */
@@ -733,8 +709,7 @@ body:has(.sidebar:hover) .home-page {
 .video-grid {
   display: grid;
 
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 
   gap: 22px 14px;
 
@@ -761,7 +736,6 @@ body:has(.sidebar:hover) .home-page {
   min-width: 0;
 }
 
-
 /* =========================================================
    THUMBNAIL
 ========================================================= */
@@ -779,7 +753,6 @@ body:has(.sidebar:hover) .home-page {
 
   background: #171e22;
 }
-
 
 /* =========================================================
    THUMBNAIL IMAGE
@@ -804,7 +777,6 @@ body:has(.sidebar:hover) .home-page {
   filter: brightness(0.82);
 }
 
-
 /* =========================================================
    BOTTOM GRADIENT
 ========================================================= */
@@ -816,16 +788,14 @@ body:has(.sidebar:hover) .home-page {
 
   pointer-events: none;
 
-  background:
-    linear-gradient(
-      0deg,
-      rgba(4, 8, 10, 0.95) 0%,
-      rgba(4, 8, 10, 0.72) 17%,
-      rgba(4, 8, 10, 0.20) 48%,
-      rgba(4, 8, 10, 0) 75%
-    );
+  background: linear-gradient(
+    0deg,
+    rgba(4, 8, 10, 0.95) 0%,
+    rgba(4, 8, 10, 0.72) 17%,
+    rgba(4, 8, 10, 0.2) 48%,
+    rgba(4, 8, 10, 0) 75%
+  );
 }
-
 
 /* =========================================================
    TITLE + YEAR ON IMAGE
@@ -871,7 +841,6 @@ body:has(.sidebar:hover) .home-page {
   line-height: 1.2;
 }
 
-
 /* =========================================================
    DURATION
 ========================================================= */
@@ -897,7 +866,6 @@ body:has(.sidebar:hover) .home-page {
   line-height: 1;
 }
 
-
 /* =========================================================
    HOVER OVERLAY
 ========================================================= */
@@ -916,8 +884,7 @@ body:has(.sidebar:hover) .home-page {
 
   background: rgba(0, 0, 0, 0);
 
-  transition:
-    background 0.25s ease;
+  transition: background 0.25s ease;
 
   pointer-events: none;
 }
@@ -925,7 +892,6 @@ body:has(.sidebar:hover) .home-page {
 .video-card:hover .thumbnail-overlay {
   background: rgba(0, 0, 0, 0.18);
 }
-
 
 /* =========================================================
    PLAY BUTTON
@@ -970,7 +936,6 @@ body:has(.sidebar:hover) .home-page {
   margin-left: 2px;
 }
 
-
 /* =========================================================
    VIDEO INFO BELOW THUMBNAIL
 ========================================================= */
@@ -986,7 +951,6 @@ body:has(.sidebar:hover) .home-page {
 
   min-width: 0;
 }
-
 
 /* =========================================================
    OWNER AVATAR
@@ -1031,7 +995,6 @@ body:has(.sidebar:hover) .home-page {
 
   font-weight: 600;
 }
-
 
 /* =========================================================
    DESCRIPTION + CHANNEL
@@ -1081,7 +1044,6 @@ body:has(.sidebar:hover) .home-page {
   text-overflow: ellipsis;
 }
 
-
 /* =========================================================
    EMPTY STATE
 ========================================================= */
@@ -1114,7 +1076,6 @@ body:has(.sidebar:hover) .home-page {
 
   font-size: 13px;
 }
-
 
 /* =========================================================
    RESPONSIVE — SMALL DESKTOP / TABLET
@@ -1156,11 +1117,9 @@ body:has(.sidebar:hover) .home-page {
   }
 
   .video-grid {
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
-
 
 /* =========================================================
    RESPONSIVE — TABLET
@@ -1239,11 +1198,9 @@ body:has(.sidebar:hover) .home-page {
   }
 
   .video-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-
 
 /* =========================================================
    RESPONSIVE — MOBILE
@@ -1377,32 +1334,68 @@ body:has(.sidebar:hover) .home-page {
   }
 
   .content-section {
-    padding: 32px 16px 0;
+    padding: 24px 0 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .video-grid {
-    grid-template-columns: 1fr 1fr;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    width: 100%;
+  }
 
-    gap: 10px;
+  .video-card-link {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .video-card {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .video-thumbnail {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .video-thumbnail img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .video-info {
-    gap: 7px;
+    display: flex;
+    gap: 10px;
+    padding: 10px 12px 0;
+    box-sizing: border-box;
   }
 
   .video-owner-avatar {
-    width: 28px;
-    height: 28px;
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+    flex-shrink: 0;
+  }
 
-    flex-basis: 28px;
+  .video-details {
+    flex: 1;
+    min-width: 0;
   }
 
   .video-description {
-    font-size: 11px;
+    font-size: 13px;
   }
 
   .video-channel {
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .thumbnail-content {
@@ -1422,7 +1415,6 @@ body:has(.sidebar:hover) .home-page {
   }
 }
 
-
 /* =========================================================
    VERY SMALL PHONES
 ========================================================= */
@@ -1441,7 +1433,6 @@ body:has(.sidebar:hover) .home-page {
   }
 }
 
-
 /* =========================================================
    ACCESSIBILITY
 ========================================================= */
@@ -1456,7 +1447,6 @@ body:has(.sidebar:hover) .home-page {
 
   outline-offset: 3px;
 }
-
 
 /* =========================================================
    REDUCED MOTION
